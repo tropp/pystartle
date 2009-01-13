@@ -1,0 +1,3119 @@
+<ui version="4.0" >
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1031</width>
+    <height>752</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>PyStartle</string>
+  </property>
+  <property name="animated" >
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>35</y>
+     <width>1031</width>
+     <height>695</height>
+    </rect>
+   </property>
+   <widget class="QTabWidget" name="AcquisitionTabs" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>321</width>
+      <height>391</height>
+     </rect>
+    </property>
+    <property name="palette" >
+     <palette>
+      <active>
+       <colorrole role="Button" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>255</red>
+          <green>34</green>
+          <blue>46</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ButtonText" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>246</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </active>
+      <inactive>
+       <colorrole role="Button" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>255</red>
+          <green>34</green>
+          <blue>46</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ButtonText" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>246</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </inactive>
+      <disabled>
+       <colorrole role="Button" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>255</red>
+          <green>34</green>
+          <blue>46</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ButtonText" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>106</red>
+          <green>104</green>
+          <blue>100</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </disabled>
+     </palette>
+    </property>
+    <property name="font" >
+     <font>
+      <family>Arial</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="tabPosition" >
+     <enum>QTabWidget::North</enum>
+    </property>
+    <property name="tabShape" >
+     <enum>QTabWidget::Rounded</enum>
+    </property>
+    <property name="currentIndex" >
+     <number>0</number>
+    </property>
+    <property name="elideMode" >
+     <enum>Qt::ElideRight</enum>
+    </property>
+    <property name="usesScrollButtons" >
+     <bool>false</bool>
+    </property>
+    <widget class="QWidget" name="Stimuli" >
+     <property name="geometry" >
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>315</width>
+       <height>362</height>
+      </rect>
+     </property>
+     <attribute name="title" >
+      <string>Stimuli</string>
+     </attribute>
+     <widget class="QGroupBox" name="PP_Stimulus_Enable" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>301</width>
+        <height>361</height>
+       </rect>
+      </property>
+      <property name="palette" >
+       <palette>
+        <active>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </active>
+        <inactive>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </inactive>
+        <disabled>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>106</red>
+            <green>104</green>
+            <blue>100</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </disabled>
+       </palette>
+      </property>
+      <property name="font" >
+       <font>
+        <kerning>false</kerning>
+       </font>
+      </property>
+      <property name="title" >
+       <string>Startle Parameters</string>
+      </property>
+      <property name="checkable" >
+       <bool>false</bool>
+      </property>
+      <widget class="QWidget" name="layoutWidget" >
+       <property name="geometry" >
+        <rect>
+         <x>10</x>
+         <y>30</y>
+         <width>271</width>
+         <height>321</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout" >
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_5" >
+          <item>
+           <widget class="QLabel" name="label_8" >
+            <property name="font" >
+             <font>
+              <family>Arial</family>
+              <pointsize>10</pointsize>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="text" >
+             <string>Conditioning (dB SPL)</string>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_9" >
+            <property name="font" >
+             <font>
+              <family>Arial</family>
+              <pointsize>10</pointsize>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="text" >
+             <string>Conditioning Dur (msec)</string>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_27" >
+            <property name="font" >
+             <font>
+              <family>Arial</family>
+              <pointsize>10</pointsize>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="text" >
+             <string>Conditioning Var (ms)</string>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label" >
+            <property name="font" >
+             <font>
+              <family>Arial</family>
+              <pointsize>10</pointsize>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="text" >
+             <string>Prepulse ON (dB SPL)</string>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_10" >
+            <property name="font" >
+             <font>
+              <family>Arial</family>
+              <pointsize>10</pointsize>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="text" >
+             <string>Prepulse OFF (dB SPL)</string>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_2" >
+            <property name="font" >
+             <font>
+              <family>Arial</family>
+              <pointsize>10</pointsize>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="text" >
+             <string>Prepulse Dur (msec)</string>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_11" >
+            <property name="font" >
+             <font>
+              <family>Arial</family>
+              <pointsize>10</pointsize>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="text" >
+             <string>PreStartle (msec)</string>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_3" >
+            <property name="font" >
+             <font>
+              <family>Arial</family>
+              <pointsize>10</pointsize>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="text" >
+             <string>Startle (dB SPL)</string>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_12" >
+            <property name="font" >
+             <font>
+              <family>Arial</family>
+              <pointsize>10</pointsize>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="text" >
+             <string>Startle (msec)</string>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_3" >
+          <item>
+           <widget class="QDoubleSpinBox" name="Condition_Level" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font" >
+             <font>
+              <family>Arial</family>
+              <pointsize>11</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="decimals" >
+             <number>1</number>
+            </property>
+            <property name="maximum" >
+             <double>120.000000000000000</double>
+            </property>
+            <property name="singleStep" >
+             <double>5.000000000000000</double>
+            </property>
+            <property name="value" >
+             <double>40.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="Condition_Dur" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font" >
+             <font>
+              <family>Arial</family>
+              <pointsize>11</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="decimals" >
+             <number>1</number>
+            </property>
+            <property name="maximum" >
+             <double>10000.000000000000000</double>
+            </property>
+            <property name="singleStep" >
+             <double>5.000000000000000</double>
+            </property>
+            <property name="value" >
+             <double>1000.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="Condition_Var" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font" >
+             <font>
+              <family>Arial</family>
+              <pointsize>11</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="decimals" >
+             <number>1</number>
+            </property>
+            <property name="maximum" >
+             <double>10000.000000000000000</double>
+            </property>
+            <property name="singleStep" >
+             <double>100.000000000000000</double>
+            </property>
+            <property name="value" >
+             <double>1500.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="PrePulse_Level" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font" >
+             <font>
+              <family>Arial</family>
+              <pointsize>11</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="decimals" >
+             <number>1</number>
+            </property>
+            <property name="maximum" >
+             <double>120.000000000000000</double>
+            </property>
+            <property name="singleStep" >
+             <double>5.000000000000000</double>
+            </property>
+            <property name="value" >
+             <double>70.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="PrePulse_Off_Level" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font" >
+             <font>
+              <family>Arial</family>
+              <pointsize>11</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="decimals" >
+             <number>1</number>
+            </property>
+            <property name="maximum" >
+             <double>120.000000000000000</double>
+            </property>
+            <property name="singleStep" >
+             <double>5.000000000000000</double>
+            </property>
+            <property name="value" >
+             <double>0.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="PrePulse_Dur" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font" >
+             <font>
+              <family>Arial</family>
+              <pointsize>11</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="decimals" >
+             <number>1</number>
+            </property>
+            <property name="maximum" >
+             <double>5000.000000000000000</double>
+            </property>
+            <property name="singleStep" >
+             <double>5.000000000000000</double>
+            </property>
+            <property name="value" >
+             <double>50.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="Startle_Dur" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font" >
+             <font>
+              <family>Arial</family>
+              <pointsize>11</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="decimals" >
+             <number>1</number>
+            </property>
+            <property name="maximum" >
+             <double>5000.000000000000000</double>
+            </property>
+            <property name="singleStep" >
+             <double>5.000000000000000</double>
+            </property>
+            <property name="value" >
+             <double>50.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="Startle_Level" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font" >
+             <font>
+              <family>Arial</family>
+              <pointsize>11</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="decimals" >
+             <number>0</number>
+            </property>
+            <property name="minimum" >
+             <double>1.000000000000000</double>
+            </property>
+            <property name="maximum" >
+             <double>140.000000000000000</double>
+            </property>
+            <property name="singleStep" >
+             <double>5.000000000000000</double>
+            </property>
+            <property name="value" >
+             <double>110.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="PreStartle_Dur" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font" >
+             <font>
+              <family>Arial</family>
+              <pointsize>11</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="decimals" >
+             <number>1</number>
+            </property>
+            <property name="maximum" >
+             <double>5000.000000000000000</double>
+            </property>
+            <property name="singleStep" >
+             <double>5.000000000000000</double>
+            </property>
+            <property name="value" >
+             <double>50.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="Wave" >
+     <property name="geometry" >
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>315</width>
+       <height>362</height>
+      </rect>
+     </property>
+     <attribute name="title" >
+      <string>Wave</string>
+     </attribute>
+     <widget class="QPushButton" name="ToneTest" >
+      <property name="geometry" >
+       <rect>
+        <x>40</x>
+        <y>310</y>
+        <width>101</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="palette" >
+       <palette>
+        <active>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </active>
+        <inactive>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </inactive>
+        <disabled>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>106</red>
+            <green>104</green>
+            <blue>100</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </disabled>
+       </palette>
+      </property>
+      <property name="font" >
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text" >
+       <string>Tone Test</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="NoiseTest" >
+      <property name="geometry" >
+       <rect>
+        <x>160</x>
+        <y>310</y>
+        <width>111</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="palette" >
+       <palette>
+        <active>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </active>
+        <inactive>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </inactive>
+        <disabled>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>106</red>
+            <green>104</green>
+            <blue>100</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </disabled>
+       </palette>
+      </property>
+      <property name="font" >
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text" >
+       <string>Noise Test</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="Waveform_Conditioning" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>111</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="font" >
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="currentIndex" >
+       <number>0</number>
+      </property>
+      <item>
+       <property name="text" >
+        <string>Silence</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>Tone</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>BP Noise</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>Notch Noise</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>MultiTones</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>AM Tones</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>AM Noise</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QComboBox" name="Waveform_PrePulse" >
+      <property name="geometry" >
+       <rect>
+        <x>130</x>
+        <y>30</y>
+        <width>111</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="font" >
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="currentIndex" >
+       <number>0</number>
+      </property>
+      <item>
+       <property name="text" >
+        <string>Silence</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>Tone</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>BP Noise</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>Notch Noise</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>MultiTones</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>AM Tone</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>AM Noise</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_14" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>131</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font" >
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text" >
+       <string>Conditioning Stimulus Type</string>
+      </property>
+      <property name="alignment" >
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="wordWrap" >
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_15" >
+      <property name="geometry" >
+       <rect>
+        <x>140</x>
+        <y>0</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font" >
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text" >
+       <string>PrePulse Stimulus Type</string>
+      </property>
+      <property name="alignment" >
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="wordWrap" >
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>85</y>
+        <width>301</width>
+        <height>211</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_3" >
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_7" >
+         <item>
+          <widget class="QLabel" name="label_5" >
+           <property name="font" >
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text" >
+            <string>Tone Freq (Hz)</string>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_13" >
+           <property name="font" >
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text" >
+            <string>Noise HP (Hz)</string>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_16" >
+           <property name="font" >
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text" >
+            <string>Noise LP (Hz)</string>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_24" >
+           <property name="font" >
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text" >
+            <string>Notch F1 (Hz)</string>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_25" >
+           <property name="font" >
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text" >
+            <string>Notch F2 (Hz)</string>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_26" >
+           <property name="font" >
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text" >
+            <string>Multitone (Hz)</string>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_6" >
+         <item>
+          <widget class="QDoubleSpinBox" name="PrePulse_Freq" >
+           <property name="font" >
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="maximum" >
+            <double>100000.000000000000000</double>
+           </property>
+           <property name="singleStep" >
+            <double>1000.000000000000000</double>
+           </property>
+           <property name="value" >
+            <double>4000.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="PrePulse_HP" >
+           <property name="font" >
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="maximum" >
+            <double>100000.000000000000000</double>
+           </property>
+           <property name="singleStep" >
+            <double>1000.000000000000000</double>
+           </property>
+           <property name="value" >
+            <double>8000.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="PrePulse_LP" >
+           <property name="font" >
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="maximum" >
+            <double>100000.000000000000000</double>
+           </property>
+           <property name="singleStep" >
+            <double>1000.000000000000000</double>
+           </property>
+           <property name="value" >
+            <double>16000.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="PrePulse_Notch_F1" >
+           <property name="font" >
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="maximum" >
+            <double>100000.000000000000000</double>
+           </property>
+           <property name="singleStep" >
+            <double>1000.000000000000000</double>
+           </property>
+           <property name="value" >
+            <double>12000.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="PrePulse_Notch_F2" >
+           <property name="font" >
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="maximum" >
+            <double>100000.000000000000000</double>
+           </property>
+           <property name="singleStep" >
+            <double>1000.000000000000000</double>
+           </property>
+           <property name="value" >
+            <double>14000.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="PrePulse_MultiFreq" >
+           <property name="text" >
+            <string>linspace(2.0,32.0,4.0)</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QCheckBox" name="PrePulse_GapFlag" >
+      <property name="geometry" >
+       <rect>
+        <x>130</x>
+        <y>60</y>
+        <width>131</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>PrePulse in Gap?</string>
+      </property>
+      <property name="checked" >
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="Trials" >
+     <property name="geometry" >
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>315</width>
+       <height>362</height>
+      </rect>
+     </property>
+     <attribute name="title" >
+      <string>Trials</string>
+     </attribute>
+     <widget class="QLabel" name="label_17" >
+      <property name="geometry" >
+       <rect>
+        <x>90</x>
+        <y>10</y>
+        <width>131</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="font" >
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text" >
+       <string>Trial Parameters</string>
+      </property>
+      <property name="alignment" >
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget" >
+      <property name="geometry" >
+       <rect>
+        <x>50</x>
+        <y>40</y>
+        <width>191</width>
+        <height>142</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_4" >
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout" >
+         <item>
+          <widget class="QLabel" name="label_4" >
+           <property name="font" >
+            <font>
+             <family>Arial</family>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="text" >
+            <string>ITI (sec)</string>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_7" >
+           <property name="font" >
+            <font>
+             <family>Arial</family>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="text" >
+            <string>ITI Var (sec)</string>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_6" >
+           <property name="font" >
+            <font>
+             <family>Arial</family>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="text" >
+            <string>Trials</string>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_18" >
+           <property name="font" >
+            <font>
+             <family>Arial</family>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="text" >
+            <string>Habituation Trials</string>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_2" >
+         <item>
+          <widget class="QDoubleSpinBox" name="PrePulse_ITI" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font" >
+            <font>
+             <family>Arial</family>
+             <pointsize>11</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="decimals" >
+            <number>1</number>
+           </property>
+           <property name="minimum" >
+            <double>0.000000000000000</double>
+           </property>
+           <property name="maximum" >
+            <double>600.000000000000000</double>
+           </property>
+           <property name="singleStep" >
+            <double>2.000000000000000</double>
+           </property>
+           <property name="value" >
+            <double>20.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="PrePulse_ITI_Var" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font" >
+            <font>
+             <family>Arial</family>
+             <pointsize>11</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="decimals" >
+            <number>1</number>
+           </property>
+           <property name="minimum" >
+            <double>0.000000000000000</double>
+           </property>
+           <property name="maximum" >
+            <double>20.000000000000000</double>
+           </property>
+           <property name="singleStep" >
+            <double>0.500000000000000</double>
+           </property>
+           <property name="value" >
+            <double>4.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="PrePulse_Trials" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font" >
+            <font>
+             <family>Arial</family>
+             <pointsize>11</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="decimals" >
+            <number>0</number>
+           </property>
+           <property name="minimum" >
+            <double>2.000000000000000</double>
+           </property>
+           <property name="maximum" >
+            <double>100.000000000000000</double>
+           </property>
+           <property name="value" >
+            <double>12.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="PrePulse_NHabTrials" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font" >
+            <font>
+             <family>Arial</family>
+             <pointsize>11</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="decimals" >
+            <number>0</number>
+           </property>
+           <property name="minimum" >
+            <double>0.000000000000000</double>
+           </property>
+           <property name="maximum" >
+            <double>100.000000000000000</double>
+           </property>
+           <property name="value" >
+            <double>2.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="Analysis" >
+     <property name="geometry" >
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>315</width>
+       <height>362</height>
+      </rect>
+     </property>
+     <attribute name="title" >
+      <string>Analysis</string>
+     </attribute>
+     <widget class="QLabel" name="label_19" >
+      <property name="geometry" >
+       <rect>
+        <x>80</x>
+        <y>40</y>
+        <width>131</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="font" >
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text" >
+       <string>Analysis Parameters</string>
+      </property>
+      <property name="alignment" >
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Analysis_Read" >
+      <property name="geometry" >
+       <rect>
+        <x>60</x>
+        <y>10</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="palette" >
+       <palette>
+        <active>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </active>
+        <inactive>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </inactive>
+        <disabled>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>106</red>
+            <green>104</green>
+            <blue>100</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </disabled>
+       </palette>
+      </property>
+      <property name="font" >
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text" >
+       <string>Read File</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Analysis_Analyze" >
+      <property name="geometry" >
+       <rect>
+        <x>140</x>
+        <y>10</y>
+        <width>61</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="palette" >
+       <palette>
+        <active>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </active>
+        <inactive>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </inactive>
+        <disabled>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>106</red>
+            <green>104</green>
+            <blue>100</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </disabled>
+       </palette>
+      </property>
+      <property name="font" >
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text" >
+       <string>Analyze</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget" >
+      <property name="geometry" >
+       <rect>
+        <x>22</x>
+        <y>70</y>
+        <width>241</width>
+        <height>142</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_5" >
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_10" >
+         <item>
+          <widget class="QLabel" name="label_20" >
+           <property name="font" >
+            <font>
+             <family>Arial</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text" >
+            <string>Window Start 
+ re Startle (ms)</string>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_21" >
+           <property name="font" >
+            <font>
+             <family>Arial</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text" >
+            <string>Window Post 
+Startle (ms)</string>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_22" >
+           <property name="font" >
+            <font>
+             <family>Arial</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text" >
+            <string>HPF (Hz)</string>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_23" >
+           <property name="font" >
+            <font>
+             <family>Arial</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text" >
+            <string>LPF (Hz)</string>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_9" >
+         <item>
+          <widget class="QDoubleSpinBox" name="Analysis_Start" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font" >
+            <font>
+             <family>Arial</family>
+             <pointsize>11</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="decimals" >
+            <number>1</number>
+           </property>
+           <property name="minimum" >
+            <double>-250.000000000000000</double>
+           </property>
+           <property name="maximum" >
+            <double>0.000000000000000</double>
+           </property>
+           <property name="singleStep" >
+            <double>25.000000000000000</double>
+           </property>
+           <property name="value" >
+            <double>-100.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="Analysis_Duration" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font" >
+            <font>
+             <family>Arial</family>
+             <pointsize>11</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="decimals" >
+            <number>1</number>
+           </property>
+           <property name="minimum" >
+            <double>20.000000000000000</double>
+           </property>
+           <property name="maximum" >
+            <double>500.000000000000000</double>
+           </property>
+           <property name="singleStep" >
+            <double>10.000000000000000</double>
+           </property>
+           <property name="value" >
+            <double>100.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="Analysis_HPF" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font" >
+            <font>
+             <family>Arial</family>
+             <pointsize>11</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="decimals" >
+            <number>0</number>
+           </property>
+           <property name="minimum" >
+            <double>10.000000000000000</double>
+           </property>
+           <property name="maximum" >
+            <double>5000.000000000000000</double>
+           </property>
+           <property name="singleStep" >
+            <double>5.000000000000000</double>
+           </property>
+           <property name="value" >
+            <double>75.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="Analysis_LPF" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font" >
+            <font>
+             <family>Arial</family>
+             <pointsize>11</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="decimals" >
+            <number>0</number>
+           </property>
+           <property name="minimum" >
+            <double>100.000000000000000</double>
+           </property>
+           <property name="maximum" >
+            <double>10000.000000000000000</double>
+           </property>
+           <property name="singleStep" >
+            <double>10.000000000000000</double>
+           </property>
+           <property name="value" >
+            <double>500.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QPushButton" name="Analysis_Test" >
+      <property name="geometry" >
+       <rect>
+        <x>230</x>
+        <y>310</y>
+        <width>61</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="palette" >
+       <palette>
+        <active>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </active>
+        <inactive>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </inactive>
+        <disabled>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>106</red>
+            <green>104</green>
+            <blue>100</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </disabled>
+       </palette>
+      </property>
+      <property name="font" >
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text" >
+       <string>Test</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="Settings" >
+     <property name="geometry" >
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>315</width>
+       <height>362</height>
+      </rect>
+     </property>
+     <attribute name="title" >
+      <string>Settings</string>
+     </attribute>
+     <widget class="QPushButton" name="Write_Data" >
+      <property name="geometry" >
+       <rect>
+        <x>230</x>
+        <y>10</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font" >
+       <font>
+        <family>Arial</family>
+        <pointsize>11</pointsize>
+        <kerning>false</kerning>
+       </font>
+      </property>
+      <property name="text" >
+       <string>Save Data</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Load_Params" >
+      <property name="geometry" >
+       <rect>
+        <x>30</x>
+        <y>180</y>
+        <width>111</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="palette" >
+       <palette>
+        <active>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </active>
+        <inactive>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </inactive>
+        <disabled>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>106</red>
+            <green>104</green>
+            <blue>100</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </disabled>
+       </palette>
+      </property>
+      <property name="font" >
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+        <kerning>false</kerning>
+       </font>
+      </property>
+      <property name="text" >
+       <string>Load Parameters</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Save_Params" >
+      <property name="geometry" >
+       <rect>
+        <x>170</x>
+        <y>180</y>
+        <width>111</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="palette" >
+       <palette>
+        <active>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </active>
+        <inactive>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </inactive>
+        <disabled>
+         <colorrole role="ButtonText" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>106</red>
+            <green>104</green>
+            <blue>100</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </disabled>
+       </palette>
+      </property>
+      <property name="font" >
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+        <kerning>false</kerning>
+       </font>
+      </property>
+      <property name="text" >
+       <string>Save Parameters</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget" >
+      <property name="geometry" >
+       <rect>
+        <x>80</x>
+        <y>50</y>
+        <width>171</width>
+        <height>108</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_4" >
+       <item>
+        <widget class="QCheckBox" name="Stimulus_Enable" >
+         <property name="font" >
+          <font>
+           <family>Arial</family>
+           <pointsize>11</pointsize>
+           <kerning>false</kerning>
+          </font>
+         </property>
+         <property name="text" >
+          <string>Enable Stimulus</string>
+         </property>
+         <property name="checked" >
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="Waveform_PlotFlag" >
+         <property name="font" >
+          <font>
+           <family>Arial</family>
+           <pointsize>11</pointsize>
+           <kerning>false</kerning>
+          </font>
+         </property>
+         <property name="text" >
+          <string>Plot Waveform</string>
+         </property>
+         <property name="checked" >
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="OnlineAnalysis_Flag" >
+         <property name="font" >
+          <font>
+           <family>Arial</family>
+           <pointsize>11</pointsize>
+           <kerning>false</kerning>
+          </font>
+         </property>
+         <property name="text" >
+          <string>Online Analysis</string>
+         </property>
+         <property name="checked" >
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="OnlineSpectrum_Flag" >
+         <property name="font" >
+          <font>
+           <family>Arial</family>
+           <pointsize>11</pointsize>
+           <kerning>false</kerning>
+          </font>
+         </property>
+         <property name="text" >
+          <string>Spectrum Compute</string>
+         </property>
+         <property name="checked" >
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QCheckBox" name="Startle_Debug" >
+      <property name="geometry" >
+       <rect>
+        <x>30</x>
+        <y>250</y>
+        <width>101</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Startle Debug</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="Hardware_Debug" >
+      <property name="geometry" >
+       <rect>
+        <x>170</x>
+        <y>250</y>
+        <width>121</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Hardware Debug</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="QuitButton" >
+    <property name="geometry" >
+     <rect>
+      <x>220</x>
+      <y>20</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font" >
+     <font>
+      <family>Arial</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text" >
+     <string>Quit</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="Status_Window" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>470</y>
+      <width>321</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="font" >
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <kerning>false</kerning>
+     </font>
+    </property>
+    <property name="cursor" stdset="0" >
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="focusPolicy" >
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="toolTip" >
+     <string comment="Status Window" >Click to select data to load and display</string>
+    </property>
+    <property name="lineWidth" >
+     <number>2</number>
+    </property>
+    <property name="horizontalScrollBarPolicy" >
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="autoScrollMargin" >
+     <number>1</number>
+    </property>
+    <property name="editTriggers" >
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="tabKeyNavigation" >
+     <bool>true</bool>
+    </property>
+    <property name="showDropIndicator" stdset="0" >
+     <bool>false</bool>
+    </property>
+    <property name="alternatingRowColors" >
+     <bool>false</bool>
+    </property>
+    <property name="selectionMode" >
+     <enum>QAbstractItemView::ExtendedSelection</enum>
+    </property>
+    <property name="selectionBehavior" >
+     <enum>QAbstractItemView::SelectRows</enum>
+    </property>
+    <property name="movement" >
+     <enum>QListView::Snap</enum>
+    </property>
+    <property name="isWrapping" stdset="0" >
+     <bool>false</bool>
+    </property>
+    <property name="layoutMode" >
+     <enum>QListView::SinglePass</enum>
+    </property>
+    <property name="spacing" >
+     <number>0</number>
+    </property>
+    <property name="uniformItemSizes" >
+     <bool>false</bool>
+    </property>
+    <property name="batchSize" >
+     <number>1</number>
+    </property>
+    <property name="wordWrap" >
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PrePulse_Run" >
+    <property name="geometry" >
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="palette" >
+     <palette>
+      <active>
+       <colorrole role="Button" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>85</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Light" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>170</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ButtonText" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </active>
+      <inactive>
+       <colorrole role="Button" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>85</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Light" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>170</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ButtonText" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </inactive>
+      <disabled>
+       <colorrole role="Button" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>85</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Light" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>170</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ButtonText" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>106</red>
+          <green>104</green>
+          <blue>100</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </disabled>
+     </palette>
+    </property>
+    <property name="font" >
+     <font>
+      <family>Arial</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text" >
+     <string>Run</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PrePulse_Stop" >
+    <property name="geometry" >
+     <rect>
+      <x>120</x>
+      <y>20</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="palette" >
+     <palette>
+      <active>
+       <colorrole role="Button" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>255</red>
+          <green>34</green>
+          <blue>46</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Light" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ButtonText" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>255</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </active>
+      <inactive>
+       <colorrole role="Button" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>255</red>
+          <green>34</green>
+          <blue>46</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Light" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ButtonText" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>255</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </inactive>
+      <disabled>
+       <colorrole role="Button" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>255</red>
+          <green>34</green>
+          <blue>46</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Light" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ButtonText" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>106</red>
+          <green>104</green>
+          <blue>100</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </disabled>
+     </palette>
+    </property>
+    <property name="font" >
+     <font>
+      <family>Arial</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text" >
+     <string>Stop</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="AutoSave" >
+    <property name="geometry" >
+     <rect>
+      <x>20</x>
+      <y>50</y>
+      <width>171</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Automatically Save Data</string>
+    </property>
+    <property name="checked" >
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QTabWidget" name="graphTabs" >
+    <property name="geometry" >
+     <rect>
+      <x>340</x>
+      <y>0</y>
+      <width>671</width>
+      <height>701</height>
+     </rect>
+    </property>
+    <property name="currentIndex" >
+     <number>1</number>
+    </property>
+    <widget class="QWidget" name="graph_StartleTab" >
+     <property name="geometry" >
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>665</width>
+       <height>672</height>
+      </rect>
+     </property>
+     <attribute name="title" >
+      <string>Startle/Discrim</string>
+     </attribute>
+     <widget class="QwtPlot" name="qwt_Expanded_Signal_Plot" >
+      <property name="geometry" >
+       <rect>
+        <x>40</x>
+        <y>40</y>
+        <width>581</width>
+        <height>211</height>
+       </rect>
+      </property>
+      <property name="sizePolicy" >
+       <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font" >
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="autoFillBackground" >
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QwtPlot" name="qwt_Discrimination_Plot" >
+      <property name="geometry" >
+       <rect>
+        <x>130</x>
+        <y>340</y>
+        <width>421</width>
+        <height>221</height>
+       </rect>
+      </property>
+      <property name="sizePolicy" >
+       <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font" >
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="autoFillBackground" >
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QwtTextLabel" name="qwt_Discrimination_Score" >
+      <property name="geometry" >
+       <rect>
+        <x>320</x>
+        <y>610</y>
+        <width>100</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="palette" >
+       <palette>
+        <active>
+         <colorrole role="Text" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>255</red>
+            <green>255</green>
+            <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </active>
+        <inactive>
+         <colorrole role="Text" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>255</red>
+            <green>255</green>
+            <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </inactive>
+        <disabled>
+         <colorrole role="Text" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>69</red>
+            <green>69</green>
+            <blue>69</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </disabled>
+       </palette>
+      </property>
+      <property name="frameShape" >
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="frameShadow" >
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="graph_SignalTab" >
+     <property name="geometry" >
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>665</width>
+       <height>672</height>
+      </rect>
+     </property>
+     <attribute name="title" >
+      <string>Signals</string>
+     </attribute>
+     <widget class="QwtPlot" name="qwt_Response_Plot1" >
+      <property name="geometry" >
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>631</width>
+        <height>191</height>
+       </rect>
+      </property>
+      <property name="sizePolicy" >
+       <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font" >
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="autoFillBackground" >
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QwtPlot" name="qwt_Response_Plot2" >
+      <property name="geometry" >
+       <rect>
+        <x>20</x>
+        <y>450</y>
+        <width>631</width>
+        <height>211</height>
+       </rect>
+      </property>
+      <property name="sizePolicy" >
+       <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font" >
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="autoFillBackground" >
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QwtPlot" name="qwt_RSpectrum_Plot" >
+      <property name="geometry" >
+       <rect>
+        <x>20</x>
+        <y>230</y>
+        <width>301</width>
+        <height>191</height>
+       </rect>
+      </property>
+      <property name="sizePolicy" >
+       <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font" >
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="autoFillBackground" >
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QwtPlot" name="qwt_LSpectrum_Plot" >
+      <property name="geometry" >
+       <rect>
+        <x>350</x>
+        <y>230</y>
+        <width>301</width>
+        <height>191</height>
+       </rect>
+      </property>
+      <property name="sizePolicy" >
+       <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font" >
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="autoFillBackground" >
+       <bool>false</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="graph_StimulusTab" >
+     <property name="geometry" >
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>665</width>
+       <height>672</height>
+      </rect>
+     </property>
+     <attribute name="title" >
+      <string>Stimulus</string>
+     </attribute>
+     <widget class="QwtPlot" name="qwt_Stimulus_Plot" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>621</width>
+        <height>271</height>
+       </rect>
+      </property>
+      <property name="sizePolicy" >
+       <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font" >
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="autoFillBackground" >
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QwtPlot" name="qwt_Spectrum_Plot" >
+      <property name="geometry" >
+       <rect>
+        <x>120</x>
+        <y>360</y>
+        <width>431</width>
+        <height>211</height>
+       </rect>
+      </property>
+      <property name="sizePolicy" >
+       <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font" >
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="autoFillBackground" >
+       <bool>false</bool>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QDial" name="Rd_Dial" >
+    <property name="geometry" >
+     <rect>
+      <x>300</x>
+      <y>10</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font" >
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="autoFillBackground" >
+     <bool>false</bool>
+    </property>
+    <property name="minimum" >
+     <number>-150</number>
+    </property>
+    <property name="maximum" >
+     <number>150</number>
+    </property>
+    <property name="value" >
+     <number>2</number>
+    </property>
+    <property name="sliderPosition" >
+     <number>2</number>
+    </property>
+    <property name="invertedAppearance" >
+     <bool>false</bool>
+    </property>
+    <property name="notchesVisible" >
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame" >
+    <property name="geometry" >
+     <rect>
+      <x>200</x>
+      <y>640</y>
+      <width>120</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground" >
+     <bool>true</bool>
+    </property>
+    <property name="frameShape" >
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow" >
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="X_Cursor" >
+     <property name="geometry" >
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>91</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="frameShape" >
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="text" >
+      <string>0.0</string>
+     </property>
+     <property name="alignment" >
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Y_Cursor" >
+     <property name="geometry" >
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>91</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="frameShape" >
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="text" >
+      <string>0.0</string>
+     </property>
+     <property name="alignment" >
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <zorder>frame</zorder>
+   <zorder>AcquisitionTabs</zorder>
+   <zorder>QuitButton</zorder>
+   <zorder>Status_Window</zorder>
+   <zorder>PrePulse_Run</zorder>
+   <zorder>PrePulse_Stop</zorder>
+   <zorder>AutoSave</zorder>
+   <zorder>graphTabs</zorder>
+   <zorder>Rd_Dial</zorder>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1031</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile" >
+    <property name="title" >
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen" />
+    <addaction name="actionSave_As" />
+    <addaction name="separator" />
+    <addaction name="actionQuit" />
+   </widget>
+   <widget class="QMenu" name="menuDatabase" >
+    <property name="title" >
+     <string>Database</string>
+    </property>
+    <addaction name="actionNew" />
+    <addaction name="actionOpen_2" />
+    <addaction name="actionClose" />
+   </widget>
+   <widget class="QMenu" name="menuEdit" >
+    <property name="title" >
+     <string>Edit</string>
+    </property>
+    <addaction name="actionParameters" />
+   </widget>
+   <addaction name="menuFile" />
+   <addaction name="menuDatabase" />
+   <addaction name="menuEdit" />
+  </widget>
+  <widget class="QStatusBar" name="statusbar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>730</y>
+     <width>1031</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="toolBar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>22</y>
+     <width>13</width>
+     <height>13</height>
+    </rect>
+   </property>
+   <property name="windowTitle" >
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea" >
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak" >
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QToolBar" name="toolBar_2" >
+   <property name="geometry" >
+    <rect>
+     <x>13</x>
+     <y>22</y>
+     <width>13</width>
+     <height>13</height>
+    </rect>
+   </property>
+   <property name="windowTitle" >
+    <string>toolBar_2</string>
+   </property>
+   <attribute name="toolBarArea" >
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak" >
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QToolBar" name="toolBar_3" >
+   <property name="geometry" >
+    <rect>
+     <x>26</x>
+     <y>22</y>
+     <width>13</width>
+     <height>13</height>
+    </rect>
+   </property>
+   <property name="palette" >
+    <palette>
+     <active>
+      <colorrole role="Base" >
+       <brush brushstyle="SolidPattern" >
+        <color alpha="255" >
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Window" >
+       <brush brushstyle="SolidPattern" >
+        <color alpha="255" >
+         <red>220</red>
+         <green>220</green>
+         <blue>220</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </active>
+     <inactive>
+      <colorrole role="Base" >
+       <brush brushstyle="SolidPattern" >
+        <color alpha="255" >
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Window" >
+       <brush brushstyle="SolidPattern" >
+        <color alpha="255" >
+         <red>220</red>
+         <green>220</green>
+         <blue>220</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </inactive>
+     <disabled>
+      <colorrole role="Base" >
+       <brush brushstyle="SolidPattern" >
+        <color alpha="255" >
+         <red>220</red>
+         <green>220</green>
+         <blue>220</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Window" >
+       <brush brushstyle="SolidPattern" >
+        <color alpha="255" >
+         <red>220</red>
+         <green>220</green>
+         <blue>220</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </disabled>
+    </palette>
+   </property>
+   <property name="windowTitle" >
+    <string>toolBar_3</string>
+   </property>
+   <attribute name="toolBarArea" >
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak" >
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QToolBar" name="toolBar_4" >
+   <property name="geometry" >
+    <rect>
+     <x>39</x>
+     <y>22</y>
+     <width>992</width>
+     <height>13</height>
+    </rect>
+   </property>
+   <property name="windowTitle" >
+    <string>toolBar_4</string>
+   </property>
+   <attribute name="toolBarArea" >
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak" >
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <action name="actionOpen" >
+   <property name="text" >
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionSave_As" >
+   <property name="text" >
+    <string>Save As</string>
+   </property>
+  </action>
+  <action name="actionQuit" >
+   <property name="text" >
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionNew" >
+   <property name="text" >
+    <string>New</string>
+   </property>
+  </action>
+  <action name="actionOpen_2" >
+   <property name="text" >
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionClose" >
+   <property name="text" >
+    <string>Close</string>
+   </property>
+  </action>
+  <action name="actionParameters" >
+   <property name="text" >
+    <string>Parameters</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QwtPlot</class>
+   <extends>QFrame</extends>
+   <header>qwt_plot.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QwtTextLabel</class>
+   <extends>QFrame</extends>
+   <header>qwt_text_label.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
