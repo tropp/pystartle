@@ -50,6 +50,9 @@ REF_ES_dB = 86.0 # calibration info -  Assumes 10 dB padding with attenuator.
 REF_ES_volt = 2.0 # output in volts to get refdb
 REF_MAG_dB = 100.0 # right speaker is mag... different scaling.
 
+NIDevice = 'Dev1'
+startleFile = "C:\Users\Experimenters\Desktop\pystartle\startle2.rco"
+
 class PySounds:
     
     def __init__(self):
@@ -57,7 +60,7 @@ class PySounds:
     # the first thing we must do is find out what hardware is available and what
     # system we are on.
     ################################################################################
-        self.debugFlag = False
+        self.debugFlag = True
         if self.debugFlag:
             print "PySounds: Checking Hardware and OS"
         try:
@@ -68,23 +71,25 @@ class PySounds:
                 print "PySounds.init: OS is Windows (NT or XP)"
             # get the drivers and the activeX control (win32com)
             from nidaq import NIDAQ as nidaq_devs
-#            import nidaq
+            import nidaq
+            self.nidaq = nidaq
             import win32com.client
             
             if self.debugFlag:
                 print "PySounds.init: Attempt to Assert num devs > 0:",
-            assert(len(nidaq_devs.listDevices()) > 0)
-            self.dev0 = nidaq_devs.getDevice('Dev2')
+            assert(len(nidaq_devs.listDevices()[0]) > 0)
+            self.nidaq_device = nidaq_devs.getDevice(NIDevice)
             hwerr = 0
             if self.debugFlag:
-                print "PySounds.init: found nidq devices."
+                print "PySounds.init: found nidaq devices."
                 print "devices: %s" % nidaq_devs.listDevices()
                 print "getDevice:",
-                print "  ", self.dev0
+                print "  ", self.nidaq_device
             
                 print "\nAnalog Output Channels:",
-            # print "  AI: ", self.dev0.listAIChannels()
-                print " AO: ", self.dev0.listAOChannels() # check output only
+            # print "  AI: ", self.nidaq_device.listAIChannels()
+                print " AO: ", self.nidaq_device.listAOChannels() # check output only
+                print ""
             
             # active x connection to attenuators
             # note - variables set at this scope level are global to source file
@@ -117,11 +122,11 @@ class PySounds:
             97656.25, 195312.5]
             if self.samp_cof_flag > 5:
                 self.samp_cof_flag = 5
-            a = self.RP21.LoadCOFsf("C:\pyStartle\startle2.rco", self.samp_cof_flag)
+            a = self.RP21.LoadCOFsf(startleFile, self.samp_cof_flag)
             if a > 0:
                 print "PySounds.init: Connected to TDT RP2.1 and startle2.rco is loaded"
             else:
-                print "PySounds.init: Error loading startle2.rco?, error = %d" % (a)
+                print "PySounds.init: Error loading %s, error = %d" % (startleFile, a)
                 hwerr = 1
             self.hardware = 'nidaq'
             self.out_sampleFreq = 100000
@@ -188,7 +193,7 @@ class PySounds:
                 print "BroadBand Noise " 
             
         if mode == 'bpnoise':
-            tsignal = fil*amp*np.normal(0,1,siglen)
+            tsignal = fil*amp*np.random.normal(0,1,siglen)
             # use freq[0] and freq[1] to set bandpass on the noise
             if self.debugFlag:
                 print "freqs: HP: %6.1f    LP: %6.1f" % (freq[0], freq[1])
@@ -346,17 +351,22 @@ class PySounds:
             self.ch2 = rwave[1::2]
             
         elif self.hardware in ['nidaq']:
-            self.task = self.dev0.createTask()  # creat a task for the NI 6731 board.
-            self.task.CreateAOVoltageChan("/Dev2/ao0", "ao0", -10., 10.,
+            self.task = self.nidaq_device.createTask()  # creat a task for the NI 6731 board.
+            print self.nidaq_device
+            print dir(self.nidaq_device)
+            print self.nidaq_device.listAOChannels()
+            print self.nidaq_device.dev
+            print self.nidaq.Val_Volts
+            self.task.CreateAOVoltageChan(self.nidaq_device.dev + "/ao0", "ao0", -10., 10.,
                                           self.nidaq.Val_Volts, None)
-            self.task.CreateAOVoltageChan("/Dev2/ao1", "ao1", -10., 10.,
+            self.task.CreateAOVoltageChan(self.nidaq_device.dev + "/ao1", "ao1", -10., 10.,
                                           self.nidaq.Val_Volts, None) # use 2 channels
             wlen = 2*len(wavel)
             self.task.CfgSampClkTiming(None, samplefreq, self.nidaq.Val_Rising,
-                                       self.nidaq.Val_FiniteSamps, len(wavel))
+                                       self.nidadq.Val_FiniteSamps, len(wavel))
             # DAQmxCfgDigEdgeStartTrig (taskHandle, "PFI0", DAQmx_Val_Rising);
             self.task.SetStartTrigType(self.nidaq.Val_DigEdge)
-            self.task.CfgDigEdgeStartTrig('PFI0',  self.nidaq.Val_Rising)
+            self.task.CfgDigEdgeStartTrig('PFI0',  self.nidadq.Val_Rising)
             daqwave = np.zeros(wlen)
             (wavel, clipl) = self.clip(wavel, 10.0)
             (waver, clipr) = self.clip(waver, 10.0)
@@ -370,11 +380,11 @@ class PySounds:
             if a <= 0:
                 print "PySounds.playSound: Unable to clear RP2.1"
                 return
-            a = self.RP21.LoadCOFsf("C:\pyStartle\startle2.rco", self.samp_cof_flag)
+            a = self.RP21.LoadCOFsf(startleFile, self.samp_cof_flag)
             if a > 0 and self.debugFlag:
                 print "PySounds.playSound: Connected to TDT RP2.1 and startle2.rco is loaded"
             else:
-                raise ValueError("PySounds.playSound: Error loading startle2.rco?, error = %d" % (a))
+                raise ValueError("PySounds.playSound: Error loading %s, error = %d" % (startleFile, a))
 
             self.trueFreq = self.RP21.GetSFreq()
             Ndata = np.ceil(0.5*(dur+postduration)*self.trueFreq)

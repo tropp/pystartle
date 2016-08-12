@@ -79,29 +79,27 @@ from PyQt4 import Qt, QtCore, QtGui
 import pyqtgraph as pg
 #import PyQt4.Qwt5 as Qwt
 #from PyQt4.Qwt5.anynumpy import *
+import random # use this for random.sample, which takes 2 args (not numpy.random)
 
-from sets import *
-from pylab import *
+#from pylab import *
 import scipy
 import scipy.signal
 
-import numpy
+import numpy as np
 import numpy.ma as ma # masked arrays.
-# from numpy.fft import fft
-from matplotlib.font_manager import FontProperties
-import matplotlib.pyplot as plt
+# from np.fft import fft
+#from matplotlib.font_manager import FontProperties
 # non-standard stuff:
-import Image
+#import Image
 import stack_simulator
 
 import string
-import Image, ImageDraw, ImageOps, sys
+#import Image, ImageDraw, ImageOps, sys
 #from pyPdf import PdfFileWriter, PdfFileReader
 
 import MpyqtHelpers as Mpyqt
 from MpyqtHelpers import MPH
 
-from random import sample
 # our sound handling module (includes hardware detection and signal generation)
 import PySounds
 #import MPlot
@@ -288,7 +286,7 @@ class PyStartle(QtGui.QMainWindow):
     def slotQuit(self):
         try:
             if self.hardware == 'nidaq':
-                RP21.Halt() # make sure the RP21 is stopped.
+                Sounds.RP21.Halt() # make sure the RP21 is stopped.
         finally:
             pass
 #        self.slotCloseDataWindows() # should close the matplotlib windows... 
@@ -484,13 +482,13 @@ class PyStartle(QtGui.QMainWindow):
         self.readParameters()
         w = Sounds.StimulusMaker(mode='tone', freq = (self.PP_Freq, 0),
                                duration = self.PP_Dur, samplefreq = 44100)
-        self.plotSignal(numpy.linspace(0., self.PP_Dur, len(w)), w, w, plotResponse=False)
+        self.plotSignal(np.linspace(0., self.PP_Dur, len(w)), w, w, plotResponse=False)
 
     def NoiseTest(self):
         self.readParameters()
         w = Sounds.StimulusMaker(mode = 'bpnoise', freq=(self.PP_HP, self.PP_LP),
                                duration=self.PP_Dur, samplefreq = 44100)
-        self.plotSignal(numpy.linspace(0., self.PP_Dur, len(w)), w, w, plotResponse=False)
+        self.plotSignal(np.linspace(0., self.PP_Dur, len(w)), w, w, plotResponse=False)
         
 ################################################################################
 #
@@ -517,19 +515,19 @@ class PyStartle(QtGui.QMainWindow):
         self.TrialCounter = 0
         self.SpecMax = 0
         self.totalTrials = int(self.Trials+self.NHabTrials)
-        itil = self.ITI + self.ITI_Var*(rand(1, self.totalTrials)-0.5)
-        self.ITI_List = itil.reshape(max(shape(itil)))
-        stimd = self.CN_Dur + self.CN_Var*(rand(1,self.totalTrials)-0.5)
-        self.Dur_List = stimd.reshape(max(shape(stimd)))
-        self.Gap_List = self.totalTrials**[False]
-        list = int(self.Trials/2)*[False, True]
-        s=sample(list, int(self.Trials))
+        itil = self.ITI + self.ITI_Var*(np.random.rand(1, self.totalTrials)-0.5)
+        self.ITI_List = itil.reshape(np.max(np.shape(itil)))
+        stimd = self.CN_Dur + self.CN_Var*(np.random.rand(1,self.totalTrials)-0.5)
+        self.Dur_List = stimd.reshape(np.max(np.shape(stimd)))
+        self.Gap_List = self.totalTrials*[False]
+        tlist = int(self.Trials/2)*[False, True]
+        s = random.sample(tlist, int(self.Trials)) # note: NOT np.random here.
         self.Gap_List[int(self.NHabTrials):] = s
         if self.AutoSave:
             self.writeDataFileHeader(self.fn) # wait to write header until we have all the values.
-        self.Gap_StartleMagnitude = zeros(self.Trials)
+        self.Gap_StartleMagnitude = np.zeros(self.Trials)
         self.Gap_Counter = 0
-        self.noGap_StartleMagnitude = zeros(self.Trials)
+        self.noGap_StartleMagnitude = np.zeros(self.Trials)
         self.noGap_Counter = 0
         self.PPGo = True
         if self.debugFlag:
@@ -560,7 +558,7 @@ class PyStartle(QtGui.QMainWindow):
             self.Stim_Dur = self.Dur_List[self.TrialCounter] # randomize the durations a bit too
             self.runOnePP()
             if self.WavePlot == True:
-                self.plotSignal(numpy.linspace(0., self.Stim_Dur, len(self.wave_outL)), self.wave_outL, self.wave_outR, self.out_sampleFreq)
+                self.plotSignal(np.linspace(0., self.Stim_Dur, len(self.wave_outL)), self.wave_outL, self.wave_outR, self.out_sampleFreq)
             if self.AutoSave:
                 self.AppendData(self.fn)
             self.TrialCounter = self.TrialCounter + 1
@@ -620,17 +618,17 @@ class PyStartle(QtGui.QMainWindow):
             if self.PP_Mode == 1 or self.PP_Mode ==4 or self.PP_Mode == 5: # now insert a tone
                 w_pp = Sounds.StimulusMaker(mode = 'tone', duration = self.PP_Dur, freq = (self.PP_Freq, 0),
                                           delay=self.Stim_Dur, samplefreq = self.out_sampleFreq, level = self.PP_Level)
-                w_pp = append(w_pp, numpy.zeros(len(self.wave_outL)-len(w_pp))) # pad
+                w_pp = append(w_pp, np.zeros(len(self.wave_outL)-len(w_pp))) # pad
             if self.PP_Mode == 2 or self.PP_Mode == 6:  # 2 is bandpass noise
                 w_pp = Sounds.StimulusMaker(mode = 'bpnoise', duration = self.PP_Dur, freq = (self.PP_HP, self.PP_LP),
                                     delay=self.Stim_Dur, samplefreq = self.out_sampleFreq, level = self.PP_Level)
-                w_pp = append(w_pp, numpy.zeros(len(self.wave_outL)-len(w_pp))) # pad  
+                w_pp = append(w_pp, np.zeros(len(self.wave_outL)-len(w_pp))) # pad  
             if self.PP_Mode == 3: # 3 Notched noise
                 w_pp = Sounds.StimulusMaker(mode = 'notchnoise', duration = self.Stim_Dur,
                                     freq = (self.PP_HP, self.PP_LP, self.Notch_F1, self.Notch_F2),
                                     samplefreq = self.out_sampleFreq, delay=self.Stim_Dur,
                                     level = self.PP_Level)
-                w_pp = append(w_pp, numpy.zeros(len(self.wave_outL)-len(w_pp))) # pad 
+                w_pp = append(w_pp, np.zeros(len(self.wave_outL)-len(w_pp))) # pad 
         if len(w_pp) > 0:
             self.wave_outL = self.wave_outL + w_pp
         # generate the startle sound. Note that it overlaps the end of the conditioning sound...
@@ -641,9 +639,9 @@ class PyStartle(QtGui.QMainWindow):
         lenL = len(self.wave_outL)
         lenR = len(self.wave_outR)
         if lenR > lenL:
-            self.wave_outL = append(self.wave_outL, numpy.zeros(lenR-lenL))
+            self.wave_outL = append(self.wave_outL, np.zeros(lenR-lenL))
         if lenL > lenR:
-            self.wave_outR = append(self.wave_outR, numpy.zeros(lenL-lenR))
+            self.wave_outR = append(self.wave_outR, np.zeros(lenL-lenR))
         if self.debugFlag:
             print "runOnePP: present stimulus"
         if self.StimEnable == True:
@@ -662,7 +660,7 @@ class PyStartle(QtGui.QMainWindow):
         if self.debugFlag:
             print "plotSignal: entering"
         npts = len(wL)
-        t = numpy.linspace(0.,npts/float(samplefreq), npts)
+        t = np.linspace(0.,npts/float(samplefreq), npts)
         skip = int(npts/self.maxptsplot)
         if skip < 1:
             skip = 1
@@ -682,13 +680,14 @@ class PyStartle(QtGui.QMainWindow):
             print "plotSignal: specplot start"
         if self.ShowSpectrum:
             if self.debugFlag:
-                print "signal pts: %d min: %f max: %f" % (len(wL), min(wL), max(wL))
+                print "signal pts: %d min: %f max: %f" % (len(wL), np.min(wL), np.max(wL))
             (spectrum, freqAzero) = Utils.pSpectrum(wR, samplefreq)
             # MPlots.PlotReset(self.ui.qwt_Spectrum_Plot, textName='Spectrum_Plot')
             print spectrum[1:]
             self.specPlot.clear()
-            MPHL.semiLogX(self.specPlot, freqAzero/1000.0, spectrum, ticklist=[0.5, 1.0, 2.0, 5.0, 10.0, 16.0, 22.0], range=[0.5,25.0])
-#            self.specPlot.plot(numpy.log10(freqAzero[1:]/1000.0), spectrum[1:])
+            MPHL.semiLogX(self.specPlot, freqAzero/1000.0, spectrum,
+                ticklist=[0.5, 1.0, 2.0, 5.0, 10.0, 16.0, 22.0], range=[0.5,25.0])
+#            self.specPlot.plot(np.log10(freqAzero[1:]/1000.0), spectrum[1:])
 #            self.specPlot.getAxis('bottom').setTicks([[(-1,'0.1'), (0, '1.0'), (0.477, '5.0'), (1.0, '10.0'), (1.301, '20.0')]])
 #            self.specPlot.setXRange(0., 1.301)
             
@@ -697,8 +696,8 @@ class PyStartle(QtGui.QMainWindow):
             print "plotSignal: specplot done"
         if not plotResponse:
             return
-        ds = shape(self.ch1)
-        self.response_tb=arange(0,len(self.ch1))/self.in_sampleFreq
+        ds = self.ch1.shape
+        self.response_tb = np.arange(0,len(self.ch1))/self.in_sampleFreq
         self.Response_Plot1.plot(self.response_tb[0::skip],
             1000.0*self.ch1[0::skip], 'g')
         # MPlots.PlotReset(self.ui.qwt_Response_Plot2, textName='Response_Plot2')
@@ -731,10 +730,10 @@ class PyStartle(QtGui.QMainWindow):
             self.ui.Rd_Dial.setValue(int(100*dprime))
         
     def getSelectionIndices(self, x, xstart, xend):
-        astart = where(x >= xstart)
-        aend = where (x <= xend)
-        s0 = Set(transpose(astart).flat)
-        s1 = Set(transpose(aend).flat)
+        astart = np.where(x >= xstart)
+        aend = np.where (x <= xend)
+        s0 = set(np.transpose(astart).flat)
+        s1 = set(np.transpose(aend).flat)
         xpts = list(s1.intersection(s0))
         return (xpts)
     
@@ -889,9 +888,9 @@ class PyStartle(QtGui.QMainWindow):
                 self.statusBar().showMessage("Reading Trial %d" % (reccount) )   
                 state = 2
                 i = 0
-                t = numpy.zeros(self.npts)
-                ch1 = numpy.zeros(self.npts)
-                ch2 = numpy.zeros(self.npts)
+                t = np.zeros(self.npts)
+                ch1 = np.zeros(self.npts)
+                ch2 = np.zeros(self.npts)
                 print ".",
                 continue
             if state == 2:
@@ -901,10 +900,10 @@ class PyStartle(QtGui.QMainWindow):
                     ch2[i] = float(mo.group(4))
                     i = i + 1
                     if i >= self.npts:
-                        self.a_t.append(numpy.array(t))
+                        self.a_t.append(np.array(t))
                         # filter the data as it comes in
-                        self.a_ch1.append(numpy.array(ch1))
-                        self.a_ch2.append(numpy.array(ch2))
+                        self.a_ch1.append(np.array(ch1))
+                        self.a_ch2.append(np.array(ch2))
                         state = 1 # reset the state to read the next points list
         hstat.close()
         self.statusBar().showMessage("Done Reading")   
@@ -931,7 +930,7 @@ class PyStartle(QtGui.QMainWindow):
         # note: must clip to the part of the dataset that we need - e.g., the post-startle section        
         stdur = int(self.Analysis_Duration/srate) #  points after startle
         # prepare to plot all traces
-        rows = int(numpy.sqrt(ds))
+        rows = int(np.sqrt(ds))
         cols = int(ds/rows)
         if rows*cols < ds:
             cols += 1
@@ -941,18 +940,18 @@ class PyStartle(QtGui.QMainWindow):
             fa = Utils.SignalFilter(self.a_ch1[k], self.Analysis_LPF, self.Analysis_HPF, float(self.headerdict['SampleRate']))
             self.fa_ch1.append((fa).astype('float32'))
         
-        sum_nogap = numpy.zeros(stdur)
-        sum_gap = numpy.zeros(stdur)
+        sum_nogap = np.zeros(stdur)
+        sum_gap = np.zeros(stdur)
         N_gap = 0
         N_nogap = 0
-        tb = numpy.arange(0,(self.Analysis_Duration/srate),srate)*1000.0 # in msec.
+        tb = np.arange(0,(self.Analysis_Duration/srate),srate)*1000.0 # in msec.
         NTrials = int(self.paramdict['Trials'])
         self.Startle_Analyze(trialcounter = 0, ntrials = NTrials) # forces init of variables...
         self.SpecMax = 0
-        bli = array([])
-        sigi = array([])
+        bli = np.array([])
+        sigi = np.array([])
         for i in range(0, ds):
-            thislen = shape(self.a_t[i])
+            thislen = np.shape(self.a_t[i])
             if thislen[0] <= 0:
                 break
             ststart = int(self.delaylist[i]/srate) # delay is in msec
@@ -961,12 +960,12 @@ class PyStartle(QtGui.QMainWindow):
                 continue
             rjend = ststart + int(rejectwindow/srate)
             rpts = range(ststart, rjend)
-            if rjend > shape(self.fa_ch1[i])[0]: # check for truncated records
+            if rjend > np.shape(self.fa_ch1[i])[0]: # check for truncated records
                 break
-            bli = append(bli,std(self.fa_ch1[i][rpts]))
-            sigi = append(sigi,std(self.fa_ch1[i][ststart:stend]))
-        avgbl = mean(bli)
-        avgsig = mean(sigi)
+            bli = np.append(bli,np.std(self.fa_ch1[i][rpts]))
+            sigi = np.append(sigi,np.std(self.fa_ch1[i][ststart:stend]))
+        avgbl = np.mean(bli)
+        avgsig = np.mean(sigi)
         print "\nAverage BL: %f, Average sig: %f on %d trials" % (avgbl, avgsig, len(bli))
 
         ds = i # only include plots that are complete.
@@ -987,7 +986,7 @@ class PyStartle(QtGui.QMainWindow):
                 # MPlots.PlotReset(plt[k], gridX=True, gridY=True, textName = '_keep_') # set plot to defaults...
                 ststart = int(self.delaylist[k]/srate) # delay is in msec
                 stend = ststart+stdur
-                if stend > shape(self.a_t[k])[0]: # Handle truncated data sets.
+                if stend > np.shape(self.a_t[k])[0]: # Handle truncated data sets.
                     break
                 # MPlots.PlotLine(plt[k], self.a_t[k][ststart:stend]-self.a_t[k][ststart],
                 #self.fa_ch1[k][ststart:stend], color = pline)
@@ -997,17 +996,17 @@ class PyStartle(QtGui.QMainWindow):
         # MPlots.sameScale(plt)
         
         for i in range(int(self.paramdict['NHabTrials']), ds):
-            if shape(self.a_t[i])[0] == 0: # no data ? 
+            if np.shape(self.a_t[i])[0] == 0: # no data ? 
                 break
             ststart = int(self.delaylist[i]/srate) # delay is in msec
             stend = ststart+stdur
             rjend = ststart + int(rejectwindow/srate)
-            if rjend > shape(self.a_t[i])[0]:
+            if rjend > np.shape(self.a_t[i])[0]:
                 break # protect against truncated record by stopping analysis
             rpts = range(ststart, rjend)
             #print "Analyze: rpts = %d-%d" % (min(rpts), max(rpts))
-            bl = std(self.fa_ch1[i][rpts])
-            sig = std(self.fa_ch1[i][ststart:stend])
+            bl = np.std(self.fa_ch1[i][rpts])
+            sig = np.std(self.fa_ch1[i][ststart:stend])
             if i in self.RejectedTrials:
                 print "Rejecting Trial: %d  based on Behavior/Orientation/Location" % (i)
                 self.reColor(plt[i], self.gapmode[i])
@@ -1027,20 +1026,20 @@ class PyStartle(QtGui.QMainWindow):
             dprime = self.Response_Analysis(signal=self.fa_ch1[i][ststart:stend],
                                   samplefreq=sfreq,
                                   ResponsePlot=self.Discrimination_Plot,
-                                  SignalPlot = self.Expanded_Signal_Plot,
-                                  SpecPlot = self.RSpectrum_Plot,
+                                  SignalPlot=self.Expanded_Signal_Plot,
+                                  SpecPlot=self.RSpectrum_Plot,
                                   trialcounter=i,
                                   ntrials=NTrials,
-                                  gaplist = self.gapmode)
+                                  gaplist=self.gapmode)
             if self.gapmode[i]:
                 try:
-                    sum_gap = sum_gap + numpy.array(self.fa_ch1[i][ststart:stend])
+                    sum_gap = sum_gap + np.array(self.fa_ch1[i][ststart:stend])
                     N_gap += 1
                 except:
                     pass
             else:
                 try:
-                    sum_nogap = sum_nogap + numpy.array(self.fa_ch1[i][ststart:stend])
+                    sum_nogap = sum_nogap + np.array(self.fa_ch1[i][ststart:stend])
                     N_nogap += 1
                 except:
                     pass
@@ -1048,7 +1047,7 @@ class PyStartle(QtGui.QMainWindow):
         sum_nogap = 1000.0*sum_nogap/float(N_nogap)
         t_startle = tb[0:(stend - ststart)]/1000.0
         SignalPlot = self.ui.qwt_Expanded_Signal_Plot
-        tbase = arange(0,max(t_startle))
+        tbase = np.arange(0, np.max(t_startle))
         zline = 0.0 * tbase
         if SignalPlot is not None: # plot average traces on final figure.
         #   MPlots.PlotReset(SignalPlot, textName='Average_Traces', xlabel='Time (msec)')
@@ -1070,7 +1069,7 @@ class PyStartle(QtGui.QMainWindow):
 
 # response analysis for a single trace...
 
-    def Response_Analysis(self, timebase=None, signal=None,
+    def Response_Analysis(self, timebase=[], signal=None,
                                samplefreq=44100, delay=0, SpecPlot=None,
                                SignalPlot=None, ResponsePlot=None,
                                trialcounter=0,
@@ -1086,10 +1085,10 @@ class PyStartle(QtGui.QMainWindow):
         #print 'show spectrum, specplot, signalplot, responsePlot: ', self.ShowSpectrum, SpecPlot, SignalPlot, ResponsePlot
         if self.ShowSpectrum and SpecPlot is not None:
             if self.debugFlag:
-                print "signal pts: %d min: %f max: %f" % (len(signal), min(signal), max(signal))
+                print "signal pts: %d min: %f max: %f" % (len(signal), np.min(signal), np.max(signal))
             (Rspectrum, Rfreqs) = Utils.pSpectrum(1000.0*signal, samplefreq) # rate  (1/ms) is converted to Hz
-            if max(Rspectrum) > self.SpecMax:
-                self.SpecMax = max(Rspectrum)
+            if np.max(Rspectrum) > self.SpecMax:
+                self.SpecMax = np.max(Rspectrum)
             maxFreq = 1000.0
             # MPlots.PlotReset(SpecPlot, textName='Spec_Plot')
             SpecPlot.clear()
@@ -1099,8 +1098,8 @@ class PyStartle(QtGui.QMainWindow):
 
         if self.debugFlag:
             print "Response_Analysis: 2"
-        if timebase == None:
-            timebase = arange(0, len(signal))/samplefreq
+        if len(timebase) == 0:
+            timebase = np.arange(0, len(signal))/samplefreq
         ana_windowstart = (delay + self.Analysis_Start)
         ana_windowend = (delay + self.Analysis_End)
         if self.debugFlag:
@@ -1154,8 +1153,8 @@ class PyStartle(QtGui.QMainWindow):
             self.noGap_mean = 0.0
             self.noGap_std = 0.0
             self.Gap_Counter = 0
-            self.Gap_StartleMagnitude = array([])
-            self.noGap_StartleMagnitude = array([])
+            self.Gap_StartleMagnitude = np.array([])
+            self.noGap_StartleMagnitude = np.array([])
             self.noGap_Counter = 0
             self.SpecMax = 0.0
 
@@ -1172,26 +1171,26 @@ class PyStartle(QtGui.QMainWindow):
             #print "Trial : %d" % (trialcounter)
             if gaplist[trialcounter]:
                 try:
-                    self.Gap_StartleMagnitude = append(self.Gap_StartleMagnitude, sum(signal[apts]**2))
-                    self.Gap_mean = mean(self.Gap_StartleMagnitude)
+                    self.Gap_StartleMagnitude = np.append(self.Gap_StartleMagnitude, sum(signal[apts]**2))
+                    self.Gap_mean = np.mean(self.Gap_StartleMagnitude)
                     if self.Gap_Counter >= 1 :
-                        self.Gap_std = std(self.Gap_StartleMagnitude)
+                        self.Gap_std = np.std(self.Gap_StartleMagnitude)
                     self.Gap_Counter = self.Gap_Counter + 1
                 except:
                     print 'Startle_Analyze: error in gaplist True, trial %d' % (trialcounter)
             else:
                 try:
-                    self.noGap_StartleMagnitude = append(self.noGap_StartleMagnitude, sum(signal[apts]**2))
-                    self.noGap_mean = mean(self.noGap_StartleMagnitude)
+                    self.noGap_StartleMagnitude = np.append(self.noGap_StartleMagnitude, sum(signal[apts]**2))
+                    self.noGap_mean = np.mean(self.noGap_StartleMagnitude)
                     if self.noGap_Counter >= 1 :
-                        self.noGap_std = std(self.noGap_StartleMagnitude)
+                        self.noGap_std = np.std(self.noGap_StartleMagnitude)
                     self.noGap_Counter = self.noGap_Counter + 1
                 except:
                     print 'Startle_Analyze: error in gaplist False, trial %d' % (trialcounter)
 # now calculate the d'
             #if self.debugFlag:
             if self.noGap_std != 0 and self.Gap_std != 0 :
-                dprime = (self.noGap_mean-self.Gap_mean)/(sqrt(self.noGap_std**2 + self.Gap_std**2))
+                dprime = (self.noGap_mean-self.Gap_mean)/(np.sqrt(self.noGap_std**2 + self.Gap_std**2))
             #print "Startle_Analyze: gap: %f +/- %f,, nogap: %f +/- %f  :::: dprime = %f" % (
             #       self.Gap_mean, self.Gap_std, self.noGap_mean, self.noGap_std, dprime)
         
@@ -1466,9 +1465,9 @@ class PyStartle(QtGui.QMainWindow):
         tw = self.ui.Annotate_Table
         viddelay = self.ui.AnnotateVideoDelay.value()
         if len(self.ITI_List) > 0:
-            cumulativeTime = cumsum(self.ITI_List)-self.ITI_List[0]
+            cumulativeTime = np.cumsum(self.ITI_List)-self.ITI_List[0]
         else:
-            cumulativeTime = arange(0,self.Annotation.ntrials()*self.ITI, self.ITI)
+            cumulativeTime = np.arange(0,self.Annotation.ntrials()*self.ITI, self.ITI)
             selected = None
         for row in range(0, len(self.ITI_List)):
             tw.setItem(row, 0, Qt.QTableWidgetItem('%s' %
