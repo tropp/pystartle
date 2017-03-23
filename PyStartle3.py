@@ -105,13 +105,13 @@ from random import sample
 # our sound handling module (includes hardware detection and signal generation)
 import PySounds
 #import MPlot
-import Utility as Utils
+from Utility import Utility 
 # our gui:
 from PyStartle3_gui import Ui_MainWindow
 
 Sounds = PySounds.PySounds() # instance of sound - and connects to the hardware
 #MPlots = MPlot.MPlot()
-#Utils = Utility.Utility()
+Utils = Utility()
 MPHL = MPH()
 
 ################################################################################
@@ -521,7 +521,7 @@ class PyStartle(QtGui.QMainWindow):
         self.ITI_List = itil.reshape(max(shape(itil)))
         stimd = self.CN_Dur + self.CN_Var*(rand(1,self.totalTrials)-0.5)
         self.Dur_List = stimd.reshape(max(shape(stimd)))
-        self.Gap_List = self.totalTrials**[False]
+        self.Gap_List = self.totalTrials*[False]
         list = int(self.Trials/2)*[False, True]
         s=sample(list, int(self.Trials))
         self.Gap_List[int(self.NHabTrials):] = s
@@ -542,7 +542,7 @@ class PyStartle(QtGui.QMainWindow):
         if self.debugFlag:
             print "PrePulseStop: hit detected"
         Sounds.setAttens() # attenuators down
-        Sounds.HwOff() # turn hardware off
+        # Sounds.HwOff() # turn hardware off
         self.PPGo=False # signal the prepulse while loop that  we are stopping
         self.statusBar().showMessage("Stimulus/Acquisition Events stopped")
 
@@ -685,7 +685,7 @@ class PyStartle(QtGui.QMainWindow):
                 print "signal pts: %d min: %f max: %f" % (len(wL), min(wL), max(wL))
             (spectrum, freqAzero) = Utils.pSpectrum(wR, samplefreq)
             # MPlots.PlotReset(self.ui.qwt_Spectrum_Plot, textName='Spectrum_Plot')
-            print spectrum[1:]
+#            print spectrum[1:]
             self.specPlot.clear()
             MPHL.semiLogX(self.specPlot, freqAzero/1000.0, spectrum, ticklist=[0.5, 1.0, 2.0, 5.0, 10.0, 16.0, 22.0], range=[0.5,25.0])
 #            self.specPlot.plot(numpy.log10(freqAzero[1:]/1000.0), spectrum[1:])
@@ -1099,7 +1099,7 @@ class PyStartle(QtGui.QMainWindow):
 
         if self.debugFlag:
             print "Response_Analysis: 2"
-        if timebase == None:
+        if timebase is None:
             timebase = arange(0, len(signal))/samplefreq
         ana_windowstart = (delay + self.Analysis_Start)
         ana_windowend = (delay + self.Analysis_End)
