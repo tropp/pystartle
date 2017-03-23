@@ -188,7 +188,7 @@ class PySounds:
                 print "BroadBand Noise " 
             
         if mode == 'bpnoise':
-            tsignal = fil*amp*np.normal(0,1,siglen)
+            tsignal = fil*amp*np.random.normal(0,1,siglen)
             # use freq[0] and freq[1] to set bandpass on the noise
             if self.debugFlag:
                 print "freqs: HP: %6.1f    LP: %6.1f" % (freq[0], freq[1])
@@ -339,9 +339,10 @@ class PySounds:
             postdur =  int(float(postduration*self.in_sampleFreq))
             rwave = self.read_array(len(wavel)+postdur, CHANNELS)
             self.write_array(wave)
-            self.stream.stop_stream()
-            self.stream.close()
-            self.audio.terminate()
+            self.HwOff()
+            # self.stream.stop_stream()
+#             self.stream.close()
+#             self.audio.terminate()
             self.ch1 = rwave[0::2]
             self.ch2 = rwave[1::2]
             
@@ -407,7 +408,8 @@ class PySounds:
             self.ch2 = self.RP21.ReadTagV('Data_out2', 0, Ndata)
             # ch2 = ch2 - mean(ch2[1:int(Ndata/20)]) # baseline: first 5% of trace
             self.ch1 = self.RP21.ReadTagV('Data_out1', 0, Ndata)
-            self.RP21.Halt()
+            self.HwOff()
+            #self.RP21.Halt()
         
         else:
             raise ValueError("No recognized hardware to use here")
