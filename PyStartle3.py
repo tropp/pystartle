@@ -91,11 +91,11 @@ import numpy.ma as ma # masked arrays.
 from matplotlib.font_manager import FontProperties
 import matplotlib.pyplot as plt
 # non-standard stuff:
-import Image
+#import Image
 import stack_simulator
 
 import string
-import Image, ImageDraw, ImageOps, sys
+#import Image, ImageDraw, ImageOps, sys
 #from pyPdf import PdfFileWriter, PdfFileReader
 
 import MpyqtHelpers as Mpyqt
@@ -105,7 +105,7 @@ from random import sample
 # our sound handling module (includes hardware detection and signal generation)
 import PySounds
 #import MPlot
-import pylibrary.Utility as Utils
+import Utility as Utils
 # our gui:
 from PyStartle3_gui import Ui_MainWindow
 
