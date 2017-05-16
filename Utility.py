@@ -28,7 +28,8 @@ Utils.py - general utility routines
 """
 
 import sys, re, os
-from pylab import * # includes numpy
+import scipy
+import numpy as np
 
 # compute the power spectrum.
 # simple, no windowing etc...
@@ -45,23 +46,23 @@ class Utility:
             print "? no data in pSpectrum"
             return
     # pad to the nearest higher power of 2
-        (a,b) = frexp(npts)
+        (a, b) = np.frexp(npts)
         if a <= 0.5:
-            b = b = 1
-        npad = 2**b -npts
+            b = 1
+        npad = 2**b - npts
         if self.debugFlag:
             print "npts: %d   npad: %d   npad+npts: %d" % (npts, npad, npad+npts)    
-        padw =  append(data, zeros(npad))
+        padw =  np.append(data, np.zeros(npad))
         npts = len(padw)
-        spfft = fft(padw)
-        nUniquePts = ceil((npts+1)/2.0)
+        spfft = np.fft.fft(padw)
+        nUniquePts = int(np.ceil((npts+1)/2.0))
         spfft = spfft[0:nUniquePts]
-        spectrum = abs(spfft)
+        spectrum = np.abs(spfft)
         spectrum = spectrum / float(npts) # scale by the number of points so that
                            # the magnitude does not depend on the length 
                            # of the signal or on its sampling frequency  
         spectrum = spectrum**2  # square it to get the power    
-        spmax = amax(spectrum)
+        spmax = np.amax(spectrum)
         spectrum = spectrum + 1e-12*spmax
         # multiply by two (see technical document for details)
         # odd nfft excludes Nyquist point
@@ -69,7 +70,7 @@ class Utility:
             spectrum[1:len(spectrum)] = spectrum[1:len(spectrum)] * 2
         else:
             spectrum[1:len(spectrum) -1] = spectrum[1:len(spectrum) - 1] * 2 # we've got even number of points fft
-        freqAzero = arange(0, nUniquePts, 1.0) * (samplefreq / npts)
+        freqAzero = np.arange(0, nUniquePts, 1.0) * (samplefreq / npts)
         return(spectrum, freqAzero)
     
 # filter signal with elliptical filter
@@ -85,11 +86,11 @@ class Utility:
         if self.debugFlag:
             print "signalfilter: samplef: %f  wp: %f, %f  ws: %f, %f lpf: %f  hpf: %f" % (
                sf, wp[0], wp[1], ws[0], ws[1], flpf, fhpf)
-        filter_b,filter_a=scipy.signal.iirdesign(wp, ws,
+        filter_b,filter_a = scipy.signal.iirdesign(wp, ws,
                 gpass=1.0,
                 gstop=60.0,
                 ftype="ellip")
-        w=scipy.signal.lfilter(filter_b, filter_a, signal) # filter the incoming signal
+        w = scipy.signal.lfilter(filter_b, filter_a, signal) # filter the incoming signal
         if self.debugFlag:
             print "sig: %f-%f w: %f-%f" % (min(signal), max(signal), min(w), max(w))
         return(w)

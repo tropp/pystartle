@@ -154,6 +154,9 @@ class PyStartle(QtGui.QMainWindow):
         self.ExportName = []
         self.PDFfileName = '<none>'
         self.CurrentTab = 0 # set a default current tab - left most entry
+        self.Signal_PlotLegend = None
+        self.Response_PlotLegend = None
+        
         # We pass None since it's the top-level widget, we could in fact leave 
         # that one out, but this way it's easier to add more dialogs or widgets.
         self.ui = Ui_MainWindow() # this is the ONE THING
@@ -276,7 +279,7 @@ class PyStartle(QtGui.QMainWindow):
         self.readParameters()
         self.getConfig(self.configfile)
         #self.readini("pystartle.ini") # read the initialization file if it is there.
-        self.setMainWindow('default')         
+        self.setMainWindow() # build the plots
         self.statusBar().showMessage("No File" )   
         self.Status('Welcome to PyStartle V2.2beta')
 
@@ -367,58 +370,47 @@ class PyStartle(QtGui.QMainWindow):
         self.ui.Status_Window.update() # force an update with every line
     
         
-    def setMainWindow(self, text):
-        self.setWindowTitle("PyStartle [%s]" % (text))
-
-        self.startleWidget = pg.GraphicsLayoutWidget()
-        self.Expanded_Signal_Plot = pg.PlotItem()
-        MPHL.labelUp(self.Expanded_Signal_Plot, 'time (ms)', 'Amp', 'Expanded Stimulus')
-        self.Discrimination_Plot = pg.PlotItem()
-        MPHL.labelUp(self.Discrimination_Plot, 'Trial', 'Discrim Score', 'Discrimination')
-        self.startleWidget.addItem(self.Expanded_Signal_Plot)
-        self.startleWidget.nextRow()
-        self.startleWidget.addItem(self.Discrimination_Plot)
-        self.ui.startleLayout.addWidget(self.startleWidget)
+    def setMainWindow(self, text=None):
         
-        self.signalsWidget = pg.GraphicsLayoutWidget()
-        self.LSpectrum_Plot = pg.PlotItem()
-        MPHL.labelUp(self.LSpectrum_Plot, 'F (Hz)', 'Amp', 'L Spectrum')
-        self.signalsWidget.addItem(self.LSpectrum_Plot)
-        self.RSpectrum_Plot = pg.PlotItem()
-        MPHL.labelUp(self.RSpectrum_Plot, 'F (Hz)', 'Amp', 'R Spectrum')
-        self.signalsWidget.addItem(self.RSpectrum_Plot)
-        self.signalsWidget.nextRow()
-        self.Response_Plot1 = pg.PlotItem()
-        MPHL.labelUp(self.Response_Plot1, 'T (ms)', 'Ch1 Amp', 'Response Plot 1')
-        self.signalsWidget.addItem(self.Response_Plot1)
-        self.Response_Plot2 = pg.PlotItem()
-        MPHL.labelUp(self.Response_Plot2, 'T (ms)', 'Ch2 Amp', 'Response Plot 2')
-        self.signalsWidget.addItem(self.Response_Plot2)
-        self.ui.signalsLayout.addWidget(self.signalsWidget)
-
-        self.StimWidget = pg.GraphicsLayoutWidget()
-        self.stimPlot = pg.PlotItem()
-        self.specPlot = pg.PlotItem()
-        MPHL.labelUp(self.stimPlot, 'Time (ms)', 'Amplitude', 'Stimulus')
-        MPHL.labelUp(self.specPlot, 'F (Hz)', 'dB SPL', 'Spectrum')
-        self.StimWidget.addItem(self.stimPlot)
-        self.StimWidget.nextRow()
-        self.StimWidget.addItem(self.specPlot)
-        self.ui.StimulusLayout.addWidget(self.StimWidget)
-
+        if text is not None:
+            self.setWindowTitle("PyStartle [%s]" % (text))
+        else:
+            self.startleWidget = pg.GraphicsLayoutWidget()
+            self.Expanded_Signal_Plot = pg.PlotItem()
+            MPHL.labelUp(self.Expanded_Signal_Plot, 'time (ms)', 'Amp', 'Startle')
+            self.Discrimination_Plot = pg.PlotItem()
+            MPHL.labelUp(self.Discrimination_Plot, 'Trial', 'Discrim Score', 'Discrimination')
+            self.startleWidget.addItem(self.Expanded_Signal_Plot)
+            self.startleWidget.nextRow()
+            self.startleWidget.addItem(self.Discrimination_Plot)
+            self.ui.startleLayout.addWidget(self.startleWidget)
         
-            
-        # MPlots.PlotReset(self.ui.qwt_Stimulus_Plot, xlabel='Time (sec)', ylabel='Amp (V)', textName='StimPlot')
-        # MPlots.PlotReset(self.ui.qwt_Response_Plot1, xlabel='Time (sec)', ylabel='Ch1 (mV)', textName='ResponsePlot1')
-        # MPlots.PlotReset(self.ui.qwt_Response_Plot2, xlabel='Time (sec)', ylabel='Ch2 (mV)', textName='ResponsePlot2')
-        # MPlots.PlotReset(self.ui.qwt_Expanded_Signal_Plot, xlabel='Time (sec)', ylabel= 'Amp (mV)', textName='ExpandedSignalPlot')
-        # MPlots.PlotReset(self.ui.qwt_Spectrum_Plot, xlabel='Freq (kHz)', ylabel= 'Power (V^2/Hz)', textName='SpectrumPlot')
-        # MPlots.PlotReset(self.ui.qwt_RSpectrum_Plot, xlabel='Freq (Hz)', ylabel='Ch1 (mV^2/Hz)', textName='RSpectrum')
-        # MPlots.PlotReset(self.ui.qwt_LSpectrum_Plot, xlabel='Freq (Hz)', ylabel='Ch2 (mV^2/Hz)', textName='LSpectrum')
-        # MPlots.PlotReset(self.ui.qwt_Discrimination_Plot, xlabel='Trial', ylabel= 'Response Mag.', textName='DiscrimPlot')
-        # allplots = MPlots.getPlotList()
-        #for plot in allplots:
-        #   MPlots.PlotReset(plot, bkcolor='w', textName = '_keep_')
+            self.signalsWidget = pg.GraphicsLayoutWidget()
+            self.LSpectrum_Plot = pg.PlotItem()
+            MPHL.labelUp(self.LSpectrum_Plot, 'F (kHz)', 'Amp', 'L Spectrum')
+            self.signalsWidget.addItem(self.LSpectrum_Plot)
+            self.RSpectrum_Plot = pg.PlotItem()
+            MPHL.labelUp(self.RSpectrum_Plot, 'F (kHz)', 'Amp', 'R Spectrum')
+            self.signalsWidget.addItem(self.RSpectrum_Plot)
+            self.signalsWidget.nextRow()
+            self.Response_Plot1 = pg.PlotItem()
+            MPHL.labelUp(self.Response_Plot1, 'T (ms)', 'Ch1 Amp', 'Response Plot 1')
+            self.signalsWidget.addItem(self.Response_Plot1)
+            self.Response_Plot2 = pg.PlotItem()
+            MPHL.labelUp(self.Response_Plot2, 'T (ms)', 'Ch2 Amp', 'Response Plot 2')
+            self.signalsWidget.addItem(self.Response_Plot2)
+            self.ui.signalsLayout.addWidget(self.signalsWidget)
+
+            self.StimWidget = pg.GraphicsLayoutWidget()
+            self.stimPlot = pg.PlotItem()
+            self.specPlot = pg.PlotItem()
+            MPHL.labelUp(self.stimPlot, 'Time (ms)', 'Amplitude', 'Stimulus')
+            MPHL.labelUp(self.specPlot, 'F (kHz)', 'dB SPL', 'Spectrum')
+            self.StimWidget.addItem(self.stimPlot)
+            self.StimWidget.nextRow()
+            self.StimWidget.addItem(self.specPlot)
+            self.ui.StimulusLayout.addWidget(self.StimWidget)
+
             
 # figure title for matplotlib window... 
     def putTitle(self, infotext):
@@ -670,10 +662,10 @@ class PyStartle(QtGui.QMainWindow):
         if self.debugFlag:
             print "plotSignal: stimplot"
         # MPlots.PlotReset(self.ui.qwt_Stimulus_Plot, textName='Stimulus_Plot')
-        self.stimPlot.clear()
-        self.stimPlot.plot(t[0::skip], wL[0::skip], pen = 'y')
+#        self.stimPlot.clear()
+        self.stimPlot.plot(t[0::skip], wL[0::skip], pen=pg.mkPen('y'), clear=True)
         if len(wR) == len(wL):
-            self.stimPlot.plot(t[0::skip], wR[0::skip], pen = 'c')
+            self.stimPlot.plot(t[0::skip], wR[0::skip], pen=pg.mkPen('c'))
         
         # MPlots.PlotLine(self.ui.qwt_Stimulus_Plot, t[0::skip], wL[0::skip], color = 'y')
         # MPlots.PlotLine(self.ui.qwt_Stimulus_Plot, t[0::skip], wR[0::skip], color = 'c')
@@ -686,8 +678,10 @@ class PyStartle(QtGui.QMainWindow):
             (spectrum, freqAzero) = Utils.pSpectrum(wR, samplefreq)
             # MPlots.PlotReset(self.ui.qwt_Spectrum_Plot, textName='Spectrum_Plot')
 #            print spectrum[1:]
-            self.specPlot.clear()
-            MPHL.semiLogX(self.specPlot, freqAzero/1000.0, spectrum, ticklist=[0.5, 1.0, 2.0, 5.0, 10.0, 16.0, 22.0], range=[0.5,25.0])
+#            self.specPlot.clear()
+            #MPHL.semiLogX(self.specPlot, freqAzero/1000.0, spectrum, ticklist=[0.5, 1.0, 2.0, 5.0, 10.0, 16.0, 22.0], range=[0.5,25.0])
+            s = self.specPlot(freqAzero/1000., spectrum, pen=pg.mkPen('b'))
+            s.setLogMode(x=True, y=False)
 #            self.specPlot.plot(numpy.log10(freqAzero[1:]/1000.0), spectrum[1:])
 #            self.specPlot.getAxis('bottom').setTicks([[(-1,'0.1'), (0, '1.0'), (0.477, '5.0'), (1.0, '10.0'), (1.301, '20.0')]])
 #            self.specPlot.setXRange(0., 1.301)
@@ -700,16 +694,17 @@ class PyStartle(QtGui.QMainWindow):
         ds = shape(self.ch1)
         self.response_tb=arange(0,len(self.ch1))/self.in_sampleFreq
         self.Response_Plot1.plot(self.response_tb[0::skip],
-            1000.0*self.ch1[0::skip], 'g')
+            1000.0*self.ch1[0::skip], pen=pg.mkPen('g'))
         # MPlots.PlotReset(self.ui.qwt_Response_Plot2, textName='Response_Plot2')
-        self.Response_Plot2.plot(self.response_tb[0::skip], 1000.0*self.ch2[0::skip], 'r')
+        self.Response_Plot2.plot(self.response_tb[0::skip], 1000.0*self.ch2[0::skip], pen=pg.mkPen('r'))
         if self.ShowSpectrum:
-            (Lspectrum, Lfreqs) = Utils.pSpectrum(1000.0*self.ch2, samplefreq) # rate  (1/ms) is converted to Hz
+            (Lspectrum, Lfreqs) = Utils.pSpectrum(1000.0*self.ch2, samplefreq/1000.) # rate  (1/ms) is converted to Hz
             maxFreq = 0.5*samplefreq
             # MPlots.PlotReset(self.ui.qwt_LSpectrum_Plot, textName='LSpectrum_Plot')
-            self.LSpectrum_Plot.setXRange(10.0, maxFreq)
+            self.LSpectrum_Plot.setXRange(0.01, 1.0)
             # self.ui.qwt_LSpectrum_Plot.setAxisScaleEngine(Qwt.QwtPlot.xBottom, Qwt.QwtLog10ScaleEngine())
-            self.LSpectrum_Plot.plot(Lfreqs[1:], 1000.0*Lspectrum[1:], 'y')
+            self.LSpectrum_Plot.plot(Lfreqs[1:], 1000.0*Lspectrum[1:], pen=pg.mkPen('y'))
+            self.LSpectrum_Plot.setLogMode(x=True, y=False)
 
         if self.debugFlag:
             print "plotSignal: ResponsePlots done"
@@ -812,18 +807,24 @@ class PyStartle(QtGui.QMainWindow):
         maxFreq = 5000.0
         fa = Utils.SignalFilter(signal, self.Analysis_LPF, self.Analysis_HPF, samplefreq)
         (fRspectrum, fRfreqs) = Utils.pSpectrum(fa, float(rate/1000.0)) # rate  (1/ms) is converted to Hz
-        figure(3)
-        plt.clf()
-        plt.plot(Rfreqs, Rspectrum, 'k-')
-        hold(True)
-        plt.plot(fRfreqs, fRspectrum, 'r-')
+#        figure(3)
+        plt.plot(Rfreqs, Rspectrum, pen=pg.mkPen('w'))
+        plt.plot(fRfreqs, fRspectrum, pen=pg.mkPen('r'))
         plt.show()
         
 ################################################################################
 #   Analysis routines
 #
 ################################################################################
-    def Analysis_Read(self, filename = None):
+    def Analysis_Read(self, filename=None):
+        
+        self.a_t = [] 
+        self.a_ch1 = [] 
+        self.a_ch2 = [] 
+        self.gapmode = []
+        self.delaylist = []
+        self.ITI_List = []
+        
         self.readParameters() # to be sure we have "showspectrum"
         self.readAnalysisTab()
         if filename == None:
@@ -835,7 +836,7 @@ class PyStartle(QtGui.QMainWindow):
         try:
             hstat = open(self.inFileName,"r")
             (p, f)  = os.path.split(self.inFileName)
-            self.setMainWindow(f)
+            self.setMainWindow(text=f)
         except IOError:
             self.Status( "%s not found" % (self.inFileName))
             return
@@ -850,29 +851,24 @@ class PyStartle(QtGui.QMainWindow):
                     # 3 = reading data
         parse =  re.compile("(^([\-0-9.]*) ([\-0-9.]*) ([\-0-9.]*))")
         reccount = 1
-        self.a_t = [] 
-        self.a_ch1 = [] 
-        self.a_ch2 = [] 
-        self.gapmode = []
-        self.delaylist = []
-        self.ITI_List = []
+
         header_linecount = 0
         lineno = 0
         for line in hstat:
             lineno = lineno + 1
             if state == 0:
-                if header_linecount == 0:
+                if header_linecount == 0:  # first line has parameters for stimulus etc. 
                     self.statusBar().showMessage("Reading Header" )   
                     self.paramdict = Utils.long_Eval(line)
                     header_linecount = 1
                     continue
-                if header_linecount == 1:
+                if header_linecount == 1:  # second header line is a dict with gap list status falgs
                     self.paramdict_gap = Utils.long_Eval(line)
                     state = 1
                     header_linecount = 0
                     print ".",
                 continue
-            if state == 1:
+            if state == 1:  # third line begins the data - stimulus parameters are here, so extract
                 self.headerdict =  Utils.long_Eval(line)
                 self.npts = self.headerdict['Points']
                 self.samplefreq = 1.0/float(self.headerdict['SampleRate'])
@@ -894,7 +890,7 @@ class PyStartle(QtGui.QMainWindow):
                 ch2 = numpy.zeros(self.npts)
                 print ".",
                 continue
-            if state == 2:
+            if state == 2:  # waveforms
                     mo = parse.search(line)
                     t[i] = float(mo.group(2))
                     ch1[i] = float(mo.group(3))
@@ -947,7 +943,7 @@ class PyStartle(QtGui.QMainWindow):
         N_nogap = 0
         tb = numpy.arange(0,(self.Analysis_Duration/srate),srate)*1000.0 # in msec.
         NTrials = int(self.paramdict['Trials'])
-        self.Startle_Analyze(trialcounter = 0, ntrials = NTrials) # forces init of variables...
+        self.Startle_Analyze(trialcounter=0, ntrials=NTrials) # with trial counter set to 0, initializes analysis
         self.SpecMax = 0
         bli = array([])
         sigi = array([])
@@ -971,32 +967,25 @@ class PyStartle(QtGui.QMainWindow):
 
         ds = i # only include plots that are complete.
         k = 0
-        plt=[[]]*(ds)
-#       MPlots.Erase(self.ui.Paper_Analysis)
-        for i in range(0, rows):
-            for j in range(0, cols):
-                if k >= ds:
-                    continue
-                if self.gapmode[k]:
-                    pline = 'r' # with prepulse, red
-                else:
-                    pline = 'cyan' # with nogap, blue
-                if k < self.paramdict['NHabTrials']: # force to grey
-                    pline = 'darkgray'
-                # plt[k] = MPlots.subPlot(self.ui.Paper_Analysis, rows, cols, k, sptitle=('Data_Trace_%d' % (k))) # make a new subplot
-                # MPlots.PlotReset(plt[k], gridX=True, gridY=True, textName = '_keep_') # set plot to defaults...
-                ststart = int(self.delaylist[k]/srate) # delay is in msec
-                stend = ststart+stdur
-                if stend > shape(self.a_t[k])[0]: # Handle truncated data sets.
-                    break
-                # MPlots.PlotLine(plt[k], self.a_t[k][ststart:stend]-self.a_t[k][ststart],
-                #self.fa_ch1[k][ststart:stend], color = pline)
-                # if k > 0:
-                #   MPlots.linkSelection(plt[k-1], plt[k]) # tie x axis scaling
-                k = k + 1 
-        # MPlots.sameScale(plt)
+        plt = [[]]*(ds)
+        # for i in range(0, rows):
+        #     for j in range(0, cols):
+        #         if k >= ds:
+        #             continue
+        #         if self.gapmode[k]:
+        #             pline = 'r' # with prepulse, red
+        #         else:
+        #             pline = 'c' # with nogap, cyan
+        #         if k < self.paramdict['NHabTrials']: # force to grey
+        #             pline = 'darkgray'
+        #         ststart = int(self.delaylist[k]/srate) # delay is in msec
+        #         stend = ststart+stdur
+        #         if stend > shape(self.a_t[k])[0]: # Handle truncated data sets.
+        #             break
+        #         k = k + 1
         
-        for i in range(int(self.paramdict['NHabTrials']), ds):
+        nSuccessfulTrials = 0
+        for i in range(int(self.paramdict['NHabTrials']), ds):  # start after habituation trias
             if shape(self.a_t[i])[0] == 0: # no data ? 
                 break
             ststart = int(self.delaylist[i]/srate) # delay is in msec
@@ -1014,24 +1003,26 @@ class PyStartle(QtGui.QMainWindow):
                 continue
             if bl > self.Analysis_BaselineStd * avgbl:
                 print "Rejecting Trial: %d  baseline stdev is too big: %f" % (i, bl)
-                self.reColor(plt[i], self.gapmode[i])   
+                self.reColor(plt[i], self.gapmode[i])
                 continue
             if sig > self.Analysis_WaveformStd * avgsig:
                 print "Rejecting Trial: %d  signal stdev is too big: %f" % (i, sig)
-                self.reColor(plt[i], self.gapmode[i])   
+                self.reColor(plt[i], self.gapmode[i])
                 continue
             if sig < self.Analysis_WaveformMinStd * avgsig:
                 print "Rejecting Trial: %d  signal stdev is too SMALL: %f" % (i, sig)
-                self.reColor(plt[i], self.gapmode[i])   
+                self.reColor(plt[i], self.gapmode[i])
                 continue
+            # trial by trial - updates dprime
+            nSuccessfulTrials += 1
             dprime = self.Response_Analysis(signal=self.fa_ch1[i][ststart:stend],
                                   samplefreq=sfreq,
-                                  ResponsePlot=self.Discrimination_Plot,
+                                  ResponsePlot=None, # self.Discrimination_Plot,
                                   SignalPlot = self.Expanded_Signal_Plot,
                                   SpecPlot = self.RSpectrum_Plot,
                                   trialcounter=i,
                                   ntrials=NTrials,
-                                  gaplist = self.gapmode)
+                                  gaplist = self.gapmode, okTrials=nSuccessfulTrials)
             if self.gapmode[i]:
                 try:
                     sum_gap = sum_gap + numpy.array(self.fa_ch1[i][ststart:stend])
@@ -1044,23 +1035,33 @@ class PyStartle(QtGui.QMainWindow):
                     N_nogap += 1
                 except:
                     pass
-        sum_gap = 1000.0*sum_gap/float(N_gap)
-        sum_nogap = 1000.0*sum_nogap/float(N_nogap)
+        # final signal plots
+        self.sum_gap = 1000.0*sum_gap/float(N_gap)
+        self.sum_nogap = 1000.0*sum_nogap/float(N_nogap)
+        self.plotSignal(self.Expanded_Signal_Plot, tb, ststart, stend)
+        self.plotResponse(self.Discrimination_Plot)
+
+    def plotSignal(self, signalPlot, tb, ststart, stend):
         t_startle = tb[0:(stend - ststart)]/1000.0
-        SignalPlot = self.ui.qwt_Expanded_Signal_Plot
         tbase = arange(0,max(t_startle))
         zline = 0.0 * tbase
-        if SignalPlot is not None: # plot average traces on final figure.
-        #   MPlots.PlotReset(SignalPlot, textName='Average_Traces', xlabel='Time (msec)')
-            self.signalePot.plot(tbase, zline, (75, 75, 75))
-            self.signalPlot.plot(t_startle, sum_gap, 'r')
-            self.signalPlot.plot(t_startle, sum_nogap, 'c')
-        #   MPlots.PlotLine(SignalPlot, tbase, zline, color = 'darkgray', linestyle = '--')
-        #   MPlots.PlotLine(SignalPlot, t_startle, sum_gap, color = 'r')
-        #   MPlots.PlotLine(SignalPlot, t_startle, sum_nogap, color = 'cyan')
+        if self.Signal_PlotLegend is not None:
+            self.Signal_PlotLegend.scene().removeItem(self.Signal_PlotLegend)
+        signalPlot.plot(tbase, zline, pg.mkPen((75, 75, 75, 128)), clear=True)
+        self.Signal_PlotLegend = signalPlot.addLegend()
+        signalPlot.plot(t_startle, self.sum_gap, pen=pg.mkPen('r'), name='Gap')
+        signalPlot.plot(t_startle, self.sum_nogap, pen=pg.mkPen('w'), name='No_Gap')
+        self.setGraphTab(0)
 
-        
-        
+    def plotResponse(self, ResponsePlot):
+        if self.Response_PlotLegend is not None:
+            print 'erase legend responseplot'
+            self.Response_PlotLegend.scene().removeItem(self.Response_PlotLegend) # remove the old legend
+        self.Response_PlotLegend = ResponsePlot.addLegend()  # add a new one
+        ResponsePlot.plot(self.Gap_StartleMagnitude, pen=pg.mkPen('r'),
+                                   symbol = 'o', name='Gap', clear=True)
+        ResponsePlot.plot(self.noGap_StartleMagnitude, pen=pg.mkPen('w'),
+                                   symbol = '+', name='No Gap')
     def reColor(self, plt, mode):
         pass
         # if mode:
@@ -1076,13 +1077,14 @@ class PyStartle(QtGui.QMainWindow):
                                trialcounter=0,
                                ntrials=1,
                                gaplist=None,
-                               rejectwindow = 10):
+                               rejectwindow = 10,
+                               okTrials=0):
         if self.debugFlag:
             print "Response_Analysis: entering"
         if gaplist[trialcounter]:
-            pline = 'r' # with prepulse, red
+            pline = pg.mkPen('r') # with prepulse, red
         else:
-            pline = 'g'
+            pline = pg.mkPen('g')
         #print 'show spectrum, specplot, signalplot, responsePlot: ', self.ShowSpectrum, SpecPlot, SignalPlot, ResponsePlot
         if self.ShowSpectrum and SpecPlot is not None:
             if self.debugFlag:
@@ -1091,11 +1093,8 @@ class PyStartle(QtGui.QMainWindow):
             if max(Rspectrum) > self.SpecMax:
                 self.SpecMax = max(Rspectrum)
             maxFreq = 1000.0
-            # MPlots.PlotReset(SpecPlot, textName='Spec_Plot')
-            SpecPlot.clear()
+            SpecPlot.plot(Rfreqs[1:], 1000.0*Rspectrum[1:], pen=pg.mkPen('y'), clear=True)
             SpecPlot.setXRange(10.0, maxFreq)
-            #SpecPlot.setAxisScaleEngine(Qwt.QwtPlot.xBottom, Qwt.QwtLog10ScaleEngine())
-            SpecPlot.plot(Rfreqs[1:], 1000.0*Rspectrum[1:], 'y')
 
         if self.debugFlag:
             print "Response_Analysis: 2"
@@ -1111,12 +1110,11 @@ class PyStartle(QtGui.QMainWindow):
         t0 = timebase[apts[0]] - self.Analysis_Start/1000.0
         if self.debugFlag:
             print "Response_Analysis: 3"
-        if SignalPlot is not None:
-        #   MPlots.PlotReset(SignalPlot)
-            if self.debugFlag:
-                print 'Response_Analysis, plotting signal'
-            SignalPlot.clear()
-            SignalPlot.plot(timebase[apts]-t0, 1000.0*signal[apts], pline)
+        # if SignalPlot is not None:
+        # #   MPlots.PlotReset(SignalPlot)
+        #     if self.debugFlag:
+        #         print 'Response_Analysis, plotting signal'
+        #     SignalPlot.plot(timebase[apts]-t0, 1000.0*signal[apts], pen=pline, clear=True)
         if self.debugFlag:
             print "Response_Analysis: 4"
         dprime = self.Startle_Analyze(timebase=timebase, signal=signal,
@@ -1128,18 +1126,15 @@ class PyStartle(QtGui.QMainWindow):
         if self.debugFlag:
             print "Response_Analysis: 5"
         if ResponsePlot is not None:
-            self.setGraphTab(0)
-            #print (1,len(self.Gap_StartleMagnitude)+1)
-            #print self.Gap_StartleMagnitude
-            ResponsePlot.plot(self.Gap_StartleMagnitude, color =
-                                           'r', symbol = 'o')
-            ResponsePlot.plot(self.noGap_StartleMagnitude, color = 'b',
-                                           symbol = '+')
+            self.plotResponse(ResponsePlot)
+
         self.ui.Discrimination_Score_Label.setText(('d \' = %9.3f' % dprime))
         if self.debugFlag:
             print "Response_Analysis: exiting"
         return(dprime)
-        
+
+
+
     def Startle_Analyze(self, timebase=None,
                         signal=None,
                         startdelay=0,
@@ -1189,7 +1184,6 @@ class PyStartle(QtGui.QMainWindow):
                 except:
                     print 'Startle_Analyze: error in gaplist False, trial %d' % (trialcounter)
 # now calculate the d'
-            #if self.debugFlag:
             if self.noGap_std != 0 and self.Gap_std != 0 :
                 dprime = (self.noGap_mean-self.Gap_mean)/(sqrt(self.noGap_std**2 + self.Gap_std**2))
             #print "Startle_Analyze: gap: %f +/- %f,, nogap: %f +/- %f  :::: dprime = %f" % (
@@ -1226,7 +1220,7 @@ class PyStartle(QtGui.QMainWindow):
         self.CurrentTab = config.getint('State', 'currenttab')
         self.setCurrentTab(self.CurrentTab)
         self.fileDate = config.get('State', 'Date')
-        self.setMainWindow(f + " " + self.fileDate)
+        self.setMainWindow(text = f + " " + self.fileDate)
         self.StimEnable  = config.getboolean('Flags', 'stimEnable')
         self.ui.Stimulus_Enable.setChecked(self.StimEnable)
         self.WavePlot = config.getboolean('Flags', 'WavePlot')
@@ -1558,7 +1552,6 @@ class PyStartle(QtGui.QMainWindow):
             self.updateTable()
             self.updateConditions()
             return(True, "Annotation Loaded from %s" % (Qt.QFileInfo(fn)))
-            
         
     def makeStateWidget(self, row = 1, col=1, state='Quiet'):
         box = ComboItem()
