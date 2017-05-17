@@ -64,7 +64,6 @@ Works with Anaconda distribution on Mac OS X and Windows.
     You must obtain these libraries from TrollTech directly, under their license
     to use the program.
 """
-################################################################################
 import sys, re, os
 import datetime
 import time
@@ -78,27 +77,23 @@ import pyqtgraph as pg
 import numpy as np
 from matplotlib.font_manager import FontProperties
 import matplotlib.pyplot as mpl
-#import stack_simulator
-
 import MpyqtHelpers as MPH
 
 from random import sample
 # our sound handling module (includes hardware detection and signal generation)
 import PySounds
-
 from Utility import Utility 
-# our gui:
+
 from PyStartle3_gui import Ui_MainWindow
 
 Sounds = PySounds.PySounds() # instance of sound - and connects to the hardware
 Utils = Utility()
 MPHL = MPH.MPH()
 
-################################################################################
-# One class for the program: PyStartle
-################################################################################
-
 class PyStartle(QtGui.QMainWindow):
+    """
+    Main class - instantiates GUI and connects to hardware
+    """
     
     def __init__(self):
         (self.hardware, self.out_sampleFreq, self.in_sampleFreq) = Sounds.getHardware()
@@ -110,7 +105,7 @@ class PyStartle(QtGui.QMainWindow):
         QtGui.QDialog.__init__(self)
         self.debugFlag = False # control printing debug statements.
         self.AutoSave = True
-        self.configfile = 'pystartle2.cfg'
+        self.configfile = 'pystartle3.cfg'   # specific to this version.
         self.maxptsplot = 20000 # limit the number of points plotted
         self.in_sampleFreq = 44100.0
         self.recentFiles = deque() # makes a que; in python 2.6, can add # of elements
@@ -139,57 +134,34 @@ class PyStartle(QtGui.QMainWindow):
         
         self.ui = Ui_MainWindow() # this is the ONE THING
         self.ui.setupUi(self)
-        self.connect(self.ui.QuitButton,QtCore.SIGNAL("clicked()"),
-                     self.slotQuit)
-        self.connect(self.ui.actionQuit,QtCore.SIGNAL("clicked()"),
-             self.slotQuit) 
-        self.connect(self.ui.actionOpen,QtCore.SIGNAL("clicked()"),
-             self.Analysis_Read) 
-#        self.connect(self.ui.CloseDataWindows,QtCore.SIGNAL("clicked()"),
+        self.ui.QuitButton.clicked.connect(self.slotQuit)
+        self.ui.actionQuit.triggered.connect(self.slotQuit) 
+        self.ui.actionOpen.triggered.connect(self.Analysis_Read) 
+#        self.ui.CloseDataWindows.clicked.connect(,
 #                     self.slotCloseDataWindows)
-        self.connect(self.ui.ToneTest,QtCore.SIGNAL("clicked()"),
-                     self.ToneTest)
-        self.connect(self.ui.NoiseTest,QtCore.SIGNAL("clicked()"),
-                     self.NoiseTest)
-        self.connect(self.ui.PrePulse_Run,QtCore.SIGNAL("clicked()"),
-                     self.PrePulseStart)
-        self.connect(self.ui.PrePulse_Stop,QtCore.SIGNAL("clicked()"),
-                     self.PrePulseStop)
-        self.connect(self.ui.Save_Params,QtCore.SIGNAL("clicked()"), 
-                     self.writeini)
-        self.connect(self.ui.Load_Params,QtCore.SIGNAL("clicked()"), self.readini)
-        self.connect(self.ui.Write_Data,QtCore.SIGNAL("clicked()"),
-                     self.Write_Data)
-        self.connect(self.ui.Analysis_Read,QtCore.SIGNAL("clicked()"),
-                     self.Analysis_Read)
-        self.connect(self.ui.Analysis_ReRead,QtCore.SIGNAL("clicked()"),
-                     self.Analysis_ReRead)
-        self.connect(self.ui.Analysis_Test,QtCore.SIGNAL("clicked()"),
-                     self.Analysis_Test)
-        self.connect(self.ui.Analysis_Analyze,QtCore.SIGNAL("clicked()"),
-                     self.Analyze_Data)
-        self.connect(self.ui.Analysis_lineEdit, QtCore.SIGNAL("editingFinished()"),
-                 self.Analysis_lineEdit)
-        self.connect(self.ui.Annotate_Reset, QtCore.SIGNAL("clicked()"),
-                     self.resetTable)
-        self.connect(self.ui.Annotate_Load, QtCore.SIGNAL("clicked()"),
-                     self.loadAnnotation)
-        self.connect(self.ui.Annotate_Save, QtCore.SIGNAL("clicked()"),
-                     self.saveAnnotation)
-        self.connect(self.ui.Annotate_Dump, QtCore.SIGNAL("clicked()"),
-                     self.dumpTable)
-        self.connect(self.ui.AnnotateVideoDelay, QtCore.SIGNAL("valueChanged(int)"),
-                     self.updateAnnotateTime)
-        self.connect(self.ui.Startle_Debug, QtCore.SIGNAL("clicked()"),
-                     self.Startle_Debug)
-        self.connect(self.ui.Hardware_Debug, QtCore.SIGNAL("clicked()"),
-                     self.Hardware_Debug)
-        self.connect(self.ui.Igor_Export, QtCore.SIGNAL("clicked()"), self.IgorExport) 
-        self.connect(self.ui.exportAsSVG, QtCore.SIGNAL("clicked()"), self.exportAsSVG) 
-        self.connect(self.ui.exportAsPDF, QtCore.SIGNAL("clicked()"), self.exportAsPDF) 
-        self.connect(self.ui.exportAsPNG, QtCore.SIGNAL("clicked()"), self.exportAsPNG) 
-# removed gracePlot - no longer supported
-#        self.connect(self.ui.gracePlot, QtCore.SIGNAL("clicked()"), self.useGracePlot) 
+        self.ui.ToneTest.clicked.connect(self.ToneTest)
+        self.ui.NoiseTest.clicked.connect(self.NoiseTest)
+        self.ui.PrePulse_Run.clicked.connect(self.PrePulseStart)
+        self.ui.PrePulse_Stop.clicked.connect(self.PrePulseStop)
+        self.ui.Save_Params.clicked.connect(self.writeini)
+        self.ui.Load_Params.clicked.connect(self.readini)
+        self.ui.Write_Data.clicked.connect(self.Write_Data)
+        self.ui.Analysis_Read.clicked.connect(self.Analysis_Read)
+        self.ui.Analysis_ReRead.clicked.connect(self.Analysis_ReRead)
+        self.ui.Analysis_Test.clicked.connect(self.Analysis_Test)
+        self.ui.Analysis_Analyze.clicked.connect(self.Analyze_Data)
+        self.ui.Analysis_lineEdit.editingFinished.connect(self.Analysis_lineEdit)
+        self.ui.Annotate_Reset.clicked.connect(self.resetTable)
+        self.ui.Annotate_Load.clicked.connect(self.loadAnnotation)
+        self.ui.Annotate_Save.clicked.connect(self.saveAnnotation)
+        self.ui.Annotate_Dump.clicked.connect(self.dumpTable)
+        self.ui.AnnotateVideoDelay.valueChanged.connect(self.updateAnnotateTime)
+        self.ui.Startle_Debug.clicked.connect(self.Startle_Debug)
+        self.ui.Hardware_Debug.clicked.connect(self.Hardware_Debug)
+        self.ui.Igor_Export.clicked.connect(self.IgorExport) 
+        self.ui.exportAsSVG.clicked.connect(self.exportAsSVG) 
+        self.ui.exportAsPDF.clicked.connect(self.exportAsPDF) 
+        self.ui.exportAsPNG.clicked.connect(self.exportAsPNG) 
 
 
         self.ui.GraphTabs.show()
@@ -241,7 +213,7 @@ class PyStartle(QtGui.QMainWindow):
             
         # timer calls NextTrial when timed out
         self.TrialTimer=QtCore.QTimer() # get a Q timer
-        self.connect(self.TrialTimer, QtCore.SIGNAL("timeout()"), self.NextTrial);
+        self.TrialTimer.timeout.connect(self.NextTrial);
         # MPlots.setXYReport(self.ui.X_Cursor, self.ui.Y_Cursor) # link the cursor to the display
         self.readAnalysisTab()
         self.readParameters()
@@ -255,6 +227,7 @@ class PyStartle(QtGui.QMainWindow):
 # utility routines for Gui:
 # close the windows and exit
 #
+################################################################################
 
     def slotQuit(self):
         try:
@@ -765,6 +738,7 @@ class PyStartle(QtGui.QMainWindow):
 ################################################################################
     def Analysis_Read(self, filename=None):
         
+        print 'filename: ', filename
         self.a_t = [] 
         self.a_ch1 = [] 
         self.a_ch2 = [] 
@@ -774,12 +748,13 @@ class PyStartle(QtGui.QMainWindow):
         
         self.readParameters() # to be sure we have "showspectrum"
         self.readAnalysisTab()
-        if filename == None:
+        if filename == None or not filename:
             fd = QtGui.QFileDialog(self)
             self.inFileName = str(fd.getOpenFileName(self, "Get input file", "",
                                                      "data files (*.txt)"))
         else:
             self.inFileName = filename
+        print self.inFileName
         try:
             hstat = open(self.inFileName,"r")
             (p, f)  = os.path.split(self.inFileName)
@@ -1065,8 +1040,6 @@ class PyStartle(QtGui.QMainWindow):
         self.ui.Discrimination_Score_Label.setText(('d \' = %9.3f' % dprime))
         return dprime, ratio
 
-
-
     def Startle_Analyze(self, timebase=None,
                         signal=None,
                         startdelay=0,
@@ -1338,16 +1311,19 @@ class PyStartle(QtGui.QMainWindow):
                 trial.orientation = 'Front'
                 trial.notes = ''
             item = self.makeStateWidget(row, 1, state = trial.state)
-            self.connect(item, QtCore.SIGNAL("activated(int)"),
-                     self.changeStates)
+            item.activated.connect(self.changeStates)
+            # self.connect(item, QtCore.SIGNAL("activated(int)"),
+            #          self.changeStates)
             tw.setCellWidget(row, 1, item)
             item = self.makeOrientWidget(row, 2, orient=trial.quadrant)
-            self.connect(item, QtCore.SIGNAL("activated(int)"),
-                     self.changeStates)
+            item.activated.connect(self.changeStates)
+            # self.connect(item, QtCore.SIGNAL("activated(int)"),
+            #          self.changeStates)
             tw.setCellWidget(row, 2, item)
             item = self.makeOrientWidget(row, 3, orient=trial.orientation)
-            self.connect(item, QtCore.SIGNAL("activated(int)"),
-                     self.changeStates)
+            item.activated.connect(self.changeStates)
+            # self.connect(item, QtCore.SIGNAL("activated(int)"),
+            #          self.changeStates)
             tw.setCellWidget(row, 3, item)
             notes = Qt.QString(trial.notes)
             tw.setItem(row, 4, Qt.QTableWidgetItem(notes))
@@ -1392,6 +1368,7 @@ class PyStartle(QtGui.QMainWindow):
         """ Here we adjust the times in the time column to include the video delay """
         tw = self.ui.Annotate_Table
         viddelay = self.ui.AnnotateVideoDelay.value()
+        print 'new viddelay: ', viddelay
         if len(self.ITI_List) > 0:
             cumulativeTime = np.cumsum(self.ITI_List)-self.ITI_List[0]
         else:
