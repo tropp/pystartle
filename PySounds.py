@@ -70,14 +70,23 @@ class PySounds:
             if self.debugFlag:
                 print "PySounds.init: OS is Windows (NT or XP)"
             # get the drivers and the activeX control (win32com)
+            print 'import nidaq'
             from nidaq import NIDAQ as nidaq_devs
+            print '..1'
             import nidaq
+            print '..2'
             self.nidaq = nidaq
             import win32com.client
-            
+            print 'nidaq and win32 loaded'
+
             if self.debugFlag:
                 print "PySounds.init: Attempt to Assert num devs > 0:",
-            assert(len(nidaq_devs.listDevices()[0]) > 0)
+            try:
+                assert(len(nidaq_devs.listDevices()[0]) > 0)
+            except:
+                print ("PySounds:Unable to identify NIDAQ devices: got 0")
+                raise
+
             self.nidaq_device = nidaq_devs.getDevice(NIDevice)
             hwerr = 0
             if self.debugFlag:
@@ -363,10 +372,10 @@ class PySounds:
                                           self.nidaq.Val_Volts, None) # use 2 channels
             wlen = 2*len(wavel)
             self.task.CfgSampClkTiming(None, samplefreq, self.nidaq.Val_Rising,
-                                       self.nidadq.Val_FiniteSamps, len(wavel))
+                                       self.nidaq.Val_FiniteSamps, len(wavel))
             # DAQmxCfgDigEdgeStartTrig (taskHandle, "PFI0", DAQmx_Val_Rising);
             self.task.SetStartTrigType(self.nidaq.Val_DigEdge)
-            self.task.CfgDigEdgeStartTrig('PFI0',  self.nidadq.Val_Rising)
+            self.task.CfgDigEdgeStartTrig('PFI0',  self.nidaq.Val_Rising)
             daqwave = np.zeros(wlen)
             (wavel, clipl) = self.clip(wavel, 10.0)
             (waver, clipr) = self.clip(waver, 10.0)

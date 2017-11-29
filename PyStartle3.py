@@ -103,7 +103,7 @@ from MpyqtHelpers import MPH
 # our sound handling module (includes hardware detection and signal generation)
 import PySounds
 #import MPlot
-import pylibrary.Utility as Utils
+import Utility as Utils
 # our gui:
 from PyStartle3_gui import Ui_MainWindow
 
